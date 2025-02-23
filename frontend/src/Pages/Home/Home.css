@@ -1,0 +1,85 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F8F6F2;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    color: #F97316;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+nav a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #F97316;
+}
+
+button {
+    background-color: #F97316;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #ea580c;
+}
+
+/* Hero Section */
+section {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+section h2 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+section p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 1rem;
+}
+
+/* Footer */
+footer {
+    background: white;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+footer div {
+    text-align: center;
+}
+
+footer h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}

@@ -17,6 +17,7 @@ const Footer = () => {
         <h3 className="footer-title">CONTACT</h3>
         <p>648-432-2785</p>
       </div>
+      <div></div>
     </footer>
   );
 };

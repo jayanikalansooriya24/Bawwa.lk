@@ -1,0 +1,65 @@
+/* Global styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f9fafb;
+  }
+  
+  /* Service Card */
+  .service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Star Rating */
+  .star-filled {
+    color: #facc15; /* Tailwind Yellow-400 */
+  }
+  
+  .star-empty {
+    color: #d1d5db; /* Tailwind Gray-300 */
+  }
+  
+  /* Rating Form */
+  .rating-form {
+    max-width: 400px;
+    margin: auto;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .rating-form label {
+    font-weight: 500;
+  }
+  
+  .rating-stars {
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+  }
+  
+  .rating-stars svg {
+    transition: color 0.3s ease;
+  }
+  
+  .rating-button {
+    background-color: #2563eb; /* Tailwind Blue-600 */
+    transition: background-color 0.3s ease;
+  }
+  
+  .rating-button:hover {
+    background-color: #1e40af; /* Tailwind Blue-700 */
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 1rem;
+    }
+  }
+  

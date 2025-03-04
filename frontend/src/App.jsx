@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Navbar from "./Components/navbar/navbar";
 import Footer from "./Components/footer/footer";
-
+import Register from "./Pages/Registration/Register"; // Make sure the path matches your folder structure
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <div className="content">
         <Routes>
           <Route path="/" element={<Home />} />
-     
+          <Route path="/register" element={<Register />} /> {/* Add this route */}
         </Routes>
       </div>
       <Footer />

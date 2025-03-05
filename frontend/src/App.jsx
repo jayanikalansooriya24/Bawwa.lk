@@ -5,7 +5,9 @@ import Navbar from "./Components/navbar/navbar";
 import Footer from "./Components/footer/footer";
 import Register from "./Pages/Registration/Register";
 import Feedback from "./Pages/Feedback/feedback";
-import Userprofile from "./Pages/Userprofile/userprofile";  
+import Userprofile from "./Pages/Userprofile/userprofile";
+import Lostpet from "./Pages/Lostpet/lostpet";
+
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/feedback" element={<Feedback />} /> {/* Add Feedback Route */}
           <Route path="/userprofile" element={<Userprofile />} /> {/* Add User Profile Route */}
+          <Route path="/lostpet" element={<Lostpet />} /> {/* Add Lost Pet Route */}
         </Routes>
       </div>
       <Footer />

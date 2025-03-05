@@ -3,7 +3,7 @@
   background: url('../../assets/1.png') no-repeat center center;
   background-size: cover;
   min-height: 100vh;
-  width: 440%;
+  width: 175%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,7 +24,7 @@
   font-size: 2rem;
   font-weight: bold;
   color: #2d3748;
-  width: 100%;
+  width: 10%;
 }
 
 .font-bold {
@@ -47,13 +47,13 @@
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   padding: 2rem;
-  width: 100%;
+  width: 10%;
   align-items: center;
 }
 
 .bg-white {
   background-color: white;
-  width: 100%;
+  width: 10%;
   align-items: center;
 }
 
@@ -128,4 +128,39 @@ button {
 .hover\:bg-blue-600:hover {
   background-color: #3182ce;
   transform: scale(1.05);
+}
+/* Lost Pet Notices Styling */
+.p-4 {
+  background: rgba(240, 248, 255, 0.7);
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  max-width: 80%;
+  margin: auto;
+}
+
+h3 {
+  color: #2d3748;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+p {
+  color: #4a5568;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+img {
+  max-width: 40%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Image Styling for Lost Pets */
+.w-full.h-48 {
+  object-fit: cover;
+  border-radius: 6px;
 }

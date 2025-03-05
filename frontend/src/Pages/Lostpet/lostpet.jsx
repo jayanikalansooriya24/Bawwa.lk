@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import "./lostpet.css";
+import dog from "../../assets/2.jpeg";
+import cat from "../../assets/3.jpg";
 
 const LostPet = () => {
   const [image, setImage] = useState(null);
+  const lostPets = [
+    { id: 1, name: "Buddy", location: "Central Park, Malabe", contact: "(071) 456-7890", image: dog },
+    { id: 2, name: "Luna", location: "Sunset Blvd, Kaduwela", contact: "(076) 654-3210", image: cat }
+  ];
+
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -49,6 +56,23 @@ const LostPet = () => {
             Submit Report
           </button>
         </form>
+      </div>
+      <br></br>
+      {/* Currently Lost Pet Notices */}
+      <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md mt-6">
+        <h2 className="text-2xl font-bold text-center mb-4">Currently Lost Pets</h2>
+        {lostPets.length > 0 ? (
+          lostPets.map((pet) => (
+            <div key={pet.id} className="p-4 border rounded-md bg-gray-50 mb-4">
+              <img src={pet.image} alt={pet.name} className="w-full h-48 object-cover rounded-md mb-2" />
+              <h3 className="text-xl font-bold">{pet.name}</h3>
+              <p><strong>Last Seen:</strong> {pet.location}</p>
+              <p><strong>Contact:</strong> {pet.contact}</p>
+            </div>
+          ))
+        ) : (
+          <p className="text-gray-500 text-center">No lost pet notices available at the moment.</p>
+        )}
       </div>
     </div>
   );

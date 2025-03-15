@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Navbar from "./Components/navbar/navbar";
 import Footer from "./Components/footer/footer";
+import { PetModel } from "./Pages/PetModel/PetModel";
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <div className="content">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/PetModel" element={<PetModel pet="dog"/>}/>
      
         </Routes>
       </div>

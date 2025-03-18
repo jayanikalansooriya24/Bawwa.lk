@@ -279,4 +279,11 @@ img {
     font-size: 14px;
     padding: 8px;
   }
+
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
 }

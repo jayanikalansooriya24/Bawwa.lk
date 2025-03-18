@@ -5,17 +5,56 @@ import cat from "../../assets/3.jpg";
 
 const LostPet = () => {
   const [image, setImage] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    location: "",
+    contact: "",
+    description: ""
+  });
+
+  const [errors, setErrors] = useState({});
+
   const lostPets = [
     { id: 1, name: "Buddy", location: "Central Park, Malabe", contact: "(071) 456-7890", image: dog },
     { id: 2, name: "Luna", location: "Sunset Blvd, Kaduwela", contact: "(076) 654-3210", image: cat }
   ];
-
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setImage(imageUrl);
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const validateForm = () => {
+    let errors = {};
+    if (!formData.name.trim()) errors.name = "Pet name is required.";
+    if (!formData.location.trim()) errors.location = "Location is required.";
+    if (!formData.contact.trim()) {
+      errors.contact = "Contact information is required.";
+    } else if (!/^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/.test(formData.contact)) {
+      errors.contact = "Enter a valid phone number (e.g., 071-456-7890).";
+    }
+    if (!formData.description.trim()) errors.description = "Description is required.";
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      console.log("Form submitted successfully!", formData);
+      alert("Lost pet reported successfully!");
+      setFormData({ name: "", location: "", contact: "", description: "" });
+      setImage(null);
+      setErrors({});
     }
   };
 
@@ -31,33 +70,66 @@ const LostPet = () => {
           <input type="file" accept="image/*" onChange={handleImageChange} className="w-full p-2 border rounded-md" />
         </div>
 
-        <form>
+        {/* Form */}
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">Pet Name</label>
-            <input type="text" className="w-full p-2 border rounded-md" placeholder="Enter pet's name" />
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full p-2 border rounded-md"
+              placeholder="Enter pet's name"
+            />
+            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
           </div>
 
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">Last Seen Location</label>
-            <input type="text" className="w-full p-2 border rounded-md" placeholder="Enter last known location" />
+            <input
+              type="text"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              className="w-full p-2 border rounded-md"
+              placeholder="Enter last known location"
+            />
+            {errors.location && <p className="text-red-500 text-sm">{errors.location}</p>}
           </div>
 
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">Contact Information</label>
-            <input type="text" className="w-full p-2 border rounded-md" placeholder="Enter your contact details" />
+            <input
+              type="text"
+              name="contact"
+              value={formData.contact}
+              onChange={handleChange}
+              className="w-full p-2 border rounded-md"
+              placeholder="Enter your contact details"
+            />
+            {errors.contact && <p className="text-red-500 text-sm">{errors.contact}</p>}
           </div>
 
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">Description</label>
-            <textarea className="w-full p-2 border rounded-md" rows="4" placeholder="Provide additional details"></textarea>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              className="w-full p-2 border rounded-md"
+              rows="4"
+              placeholder="Provide additional details"
+            ></textarea>
+            {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
           </div>
 
-          <button className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">
-            Submit Report
+          <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">
+            Submit
           </button>
         </form>
       </div>
-      <br></br>
+
       {/* Currently Lost Pet Notices */}
       <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md mt-6">
         <h2 className="text-2xl font-bold text-center mb-4">Currently Lost Pets</h2>

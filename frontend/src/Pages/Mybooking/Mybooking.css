@@ -1,0 +1,43 @@
+/* Mybooking.css */
+.mybooking-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .mybooking-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .mybooking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .mybooking-table th,
+  .mybooking-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .mybooking-table th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .mybooking-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .mybooking-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  

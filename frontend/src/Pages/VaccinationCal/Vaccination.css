@@ -1,0 +1,105 @@
+/* General container styling */
+.vaccination-container {
+  max-width: 450px;
+  background-color: #e59969;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Title */
+.title {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Input groups */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Button */
+.calculate-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.calculate-btn:hover {
+  background-color: #45a049;
+}
+
+/* Schedule list */
+.schedule {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.schedule h3 {
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.schedule ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.schedule li {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eaeaea;
+}
+
+/* Completed & Upcoming styles */
+.completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.upcoming {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* Status colors */
+.text-gray {
+  color: gray;
+}
+
+.text-green {
+  color: green;
+}

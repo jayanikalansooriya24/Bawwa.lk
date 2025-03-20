@@ -48,7 +48,7 @@ export function PetModel() {
     <div className="pet-model-container" ref={containerRef} style={{ marginTop: '100px', marginBottom: '80px' }}>
       <div className="pet-content flex flex-wrap justify-center items-center">
         {/* 3D Model Canvas */}
-        <div className="pet-canvas-container w-full md:w-1/2 p-4">
+        <div className="pet-canvas-container w-full md:w-1/2 p-4" style={{ marginBottom: '250px' }}> {/* Added marginBottom to create gap */}
           <Canvas
             camera={{ position: [0, 2, 40], fov: 60, near: 0.1, far: 1000 }}
             className="pet-canvas"

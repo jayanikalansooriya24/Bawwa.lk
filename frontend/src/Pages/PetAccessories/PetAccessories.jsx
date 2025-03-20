@@ -6,7 +6,7 @@ import "./PetAccessories.css";
 
 const accessoryData = {
   dog: [
-    { name: "Dog Collar 1", file: "Dog_Collar_2.glb", description: "Durable leather collar with adjustable buckle." },
+    { name: "Dog Collar 1", file: "Dog_Collar_2.glb", description: "Durable leather collar with adjustable buckle."},
     { name: "Dog Collar 2", file: "Dog_Collar_1.glb", description: "Classic red nylon collar for extra comfort." },
     { name: "Dog Collar 3", file: "Red_Bow_Collar_.glb", description: "Stylish red bow collar for a fancy look." }
   ],
@@ -32,7 +32,7 @@ const PetAccessories = ({ selectedPet }) => {
 
   return (
     <div className="accessory-container">
-      <h2>Choose an Accessory for Your {selectedPet.charAt(0).toUpperCase() + selectedPet.slice(1)}</h2>
+      <h2>Groom Your Pet {selectedPet.charAt(0).toUpperCase() + selectedPet.slice(1)}</h2>
 
       <div className="accessory-list">
         {accessories.map((accessory) => (

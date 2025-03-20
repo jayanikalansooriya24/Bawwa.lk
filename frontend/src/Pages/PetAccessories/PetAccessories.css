@@ -1,0 +1,46 @@
+.accessory-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.accessory-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.accessory-item {
+  width: 300px;
+  padding: 15px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background: white;
+  text-align: center;
+}
+
+.accessory-item.selected {
+  border-color: blue;
+  background: #f0f8ff;
+}
+
+.accessory-display {
+  width: 100%;
+  height: 200px;
+}
+
+.accessory-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.select-button.active {
+  background-color: blue;
+  color: white;
+}
+
+.cart-button {
+  background-color: green;
+  color: white;
+}

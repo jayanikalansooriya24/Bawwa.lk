@@ -6,6 +6,7 @@ import Footer from "./Components/footer/footer";
 import { PetModel } from "./Pages/PetModel/PetModel";
 
 
+
 function App() {
   return (
     <Router>
@@ -14,7 +15,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/PetModel" element={<PetModel pet="dog"/>}/>
-     
+          
+          
         </Routes>
       </div>
       <Footer />

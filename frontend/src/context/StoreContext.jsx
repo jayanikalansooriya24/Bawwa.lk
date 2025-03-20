@@ -1,41 +1,32 @@
-import { createContext,useEffect,useState } from "react"; 
+import React, { createContext, useState, useEffect } from "react";
 
-// Create Context
-export const StoreContext = createContext(null);
+export const StoreContext = createContext();
 
 export const StoreProvider = ({ children }) => {
-    const url = "http://localhost:5000"; // Backend API URL
+  const [url, setUrl] = useState("http://localhost:5000/api");
+  const [users, setUsers] = useState([]); // Store multiple users
 
-    const [user, setUser] = useState(null); // Store logged-in user data
-    const [formData, setFormData] = useState({
-        user: { firstName: "", lastName: "", email: "", phone: "", password: "" },
-        pet: { name: "", type: "", breed: "", age: "", gender: "", birthdate: "", medicalConditions: "", image: null }
+  const registerUser = (data) => {
+    console.log("📥 Data Received in Context:", data);  // ✅ Debugging log
+    setUsers((prevUsers) => {
+      const updatedUsers = [...prevUsers, data];
+      console.log("✅ Users after update:", updatedUsers); // ✅ Should now show updated data
+      return updatedUsers;
     });
 
-    // Function to update user details after login
-    const login = (userData) => {
-        setUser(userData);
-        localStorage.setItem("user", JSON.stringify(userData)); // Store in localStorage
-    };
+    setTimeout(() => {
+      console.log("✅ Users array after update:", users); // ✅ Should show updated array
+    }, 500); // Slight delay to allow React to update state
+  };
 
-    // Function to logout user
-    const logout = () => {
-        setUser(null);
-        localStorage.removeItem("user");
-    };
+  useEffect(() => {
+    console.log("🔥 Updated Users in Context:", JSON.stringify(users, null, 2)); // ✅ Now should show updated users
+  }, [users]);
+  
 
-    const contextValue = {
-        url,
-        user,
-        login,
-        logout,
-        formData,
-        setFormData
-    };
-
-    return (
-        <StoreContext.Provider value={contextValue}>
-            {children}
-        </StoreContext.Provider>
-    );
+  return (
+    <StoreContext.Provider value={{ url, users, registerUser }}>
+      {children}
+    </StoreContext.Provider>
+  );
 };

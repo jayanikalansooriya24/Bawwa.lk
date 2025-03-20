@@ -8,12 +8,14 @@ import Feedback from "./Pages/Feedback/Feedback";
 import UserProfile from "./Pages/Userprofile/UserProfile";
 import LostPet from "./Pages/Lostpet/LostPet";
 import { StoreProvider } from "./context/StoreContext";
+import DebugLogger from "./components/DebugLogger";
 
 function App() {
   return (
     <StoreProvider>
       <Router>
         <Navbar />
+        <DebugLogger /> {/* ✅ This ensures users are logged in the console */}
         <main className="content">
           <Routes>
             <Route path="/" element={<Home />} />

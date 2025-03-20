@@ -1,74 +1,79 @@
-.user-profile-container {
-  max-width: 600px;
-  margin: 20px auto;
+.profile-container {
+  max-width: 800px;
+  margin: auto;
   padding: 20px;
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
-  background: #f9f9f9;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  backdrop-filter: blur(8px);
 }
 
-.profile-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.profile-image img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.image-placeholder {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: #ddd;
+.profile-title {
+  font-size: 2rem;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  gap: 10px;
 }
 
-.upload-label {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 5px 10px;
-  background: #007bff;
-  color: white;
-  cursor: pointer;
-  border-radius: 5px;
+.profile-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
-.upload-label input {
-  display: none;
+.profile-image img {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  border: 2px solid #ddd;
 }
 
-.profile-info p {
-  margin: 8px 0;
-  font-size: 16px;
+.profile-details {
+  text-align: left;
+  margin-left: 20px;
 }
 
-.profile-info button {
-  margin-top: 15px;
-  padding: 8px 15px;
-  background: #28a745;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.profile-info button:hover {
-  background: #218838;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
+.info-section p {
+  font-size: 1rem;
   margin: 5px 0;
-  border: 1px solid #ccc;
+}
+
+.owner-info {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.owner-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.profile-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: none;
   border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn.blue {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn.red {
+  background-color: #dc3545;
+  color: white;
 }

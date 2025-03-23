@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./Booknow.css"; // Import CSS file
-
+import axios from "axios";
+import "./Booknow.css";
 const Booknow = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -17,14 +17,25 @@ const Booknow = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Booking Details:", formData);
-    alert("Appointment booked successfully!");
+    try {
+      const response = await axios.post("http://127.0.0.1:4000/api/appointments/book", formData);
+      alert("Appointment booked successfully!");
+      console.log(response.data);
+      setFormData({ name: "", email: "", contact: "", service: "", date: "", time: "" }); // Reset form
+    } catch (error) {
+      console.error("Error booking appointment:", error);
+      alert("Failed to book appointment.");
+    }
   };
 
   return (
-    <div className="booknow-container">
+    
+    <div className="booknow-container"
+    
+    >
+        
       <h2 className="booknow-title">Book Your Appointment</h2>
       <form onSubmit={handleSubmit} className="booknow-form">
         <div className="booknow-row">
@@ -37,10 +48,7 @@ const Booknow = () => {
             <input type="email" name="email" value={formData.email} onChange={handleChange} required />
 
             <label>Contact:</label>
-            <input type="number" name="number" value={formData.number} onChange={handleChange} required />
-
-
-
+            <input type="text" name="contact" value={formData.contact} onChange={handleChange} required />
           </div>
 
           {/* Column 2 */}
@@ -52,8 +60,6 @@ const Booknow = () => {
               <option value="Boarding">Boarding</option>
               <option value="Veterinary">Veterinary</option>
               <option value="Vaccination">Vaccination</option>
-              <option value="petBoarding">pet Boarding</option>
-
             </select>
 
             <label>Appointment Date:</label>

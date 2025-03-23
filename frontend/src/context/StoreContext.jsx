@@ -3,30 +3,29 @@ import React, { createContext, useState, useEffect } from "react";
 export const StoreContext = createContext();
 
 export const StoreProvider = ({ children }) => {
-  const [url, setUrl] = useState("http://localhost:5000/api");
-  const [users, setUsers] = useState([]); // Store multiple users
+  const [users, setUsers] = useState(() => {
+    // Load from localStorage when the app starts
+    const savedUsers = localStorage.getItem("users");
+    return savedUsers ? JSON.parse(savedUsers) : [];
+  });
 
   const registerUser = (data) => {
-    console.log("📥 Data Received in Context:", data);  // ✅ Debugging log
     setUsers((prevUsers) => {
       const updatedUsers = [...prevUsers, data];
-      console.log("✅ Users after update:", updatedUsers); // ✅ Should now show updated data
+      localStorage.setItem("users", JSON.stringify(updatedUsers)); // Save to localStorage
       return updatedUsers;
     });
-
-    setTimeout(() => {
-      console.log("✅ Users array after update:", users); // ✅ Should show updated array
-    }, 500); // Slight delay to allow React to update state
   };
 
   useEffect(() => {
-    console.log("🔥 Updated Users in Context:", JSON.stringify(users, null, 2)); // ✅ Now should show updated users
+    localStorage.setItem("users", JSON.stringify(users)); // Update localStorage when users change
   }, [users]);
   
 
-  return (
-    <StoreContext.Provider value={{ url, users, registerUser }}>
-      {children}
-    </StoreContext.Provider>
-  );
+ return (
+  <StoreContext.Provider value={{ users, setUsers, registerUser }}>
+    {children}
+  </StoreContext.Provider>
+);
+
 };

@@ -5,7 +5,7 @@ import Navbar from "./Components/navbar/Navbar";
 import Footer from "./Components/footer/Footer";
 import Register from "./Pages/Registration/Register";
 import Feedback from "./Pages/Feedback/Feedback";
-import UserProfile from "./Pages/Userprofile/UserProfile";
+import UserProfile from "./Pages/Userprofile/userprofile";
 import LostPet from "./Pages/Lostpet/LostPet";
 import { StoreProvider } from "./context/StoreContext";
 import DebugLogger from "./components/DebugLogger";

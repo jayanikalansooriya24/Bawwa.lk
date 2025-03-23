@@ -12,12 +12,34 @@ const LostPet = () => {
     description: ""
   });
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      const newPet = {
+        id: lostPets.length + 1,
+        name: formData.name,
+        location: formData.location,
+        contact: formData.contact,
+        image: image || "" // fallback in case image is null
+      };
+  
+      setLostPets([newPet, ...lostPets]); // Add new pet to the top of the list
+      alert("Lost pet reported successfully!");
+  
+      // Reset form
+      setFormData({ name: "", location: "", contact: "", description: "" });
+      setImage(null);
+      setErrors({});
+    }
+  };
+  
   const [errors, setErrors] = useState({});
 
-  const lostPets = [
+  const [lostPets, setLostPets] = useState([
     { id: 1, name: "Buddy", location: "Central Park, Malabe", contact: "(071) 456-7890", image: dog },
     { id: 2, name: "Luna", location: "Sunset Blvd, Kaduwela", contact: "(076) 654-3210", image: cat }
-  ];
+  ]);
+  
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -47,30 +69,29 @@ const LostPet = () => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validateForm()) {
-      console.log("Form submitted successfully!", formData);
-      alert("Lost pet reported successfully!");
-      setFormData({ name: "", location: "", contact: "", description: "" });
-      setImage(null);
-      setErrors({});
-    }
-  };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <div className="min-h-screen bg-gray-100 flex flex-wrap justify-center items-start p-6 gap-8">
+      {/* Report Lost Pet */}
+      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
         <h1 className="text-3xl font-bold text-center mb-6">Report a Lost Pet</h1>
-        
-        {/* Image Upload */}
-        <div className="mb-4">
-          {image && <img src={image} alt="Lost Pet" className="w-full h-64 object-cover rounded-md mb-4" />}
-          <label className="block text-gray-700 font-medium mb-2">Upload Pet Image</label>
-          <input type="file" accept="image/*" onChange={handleImageChange} className="w-full p-2 border rounded-md" />
-        </div>
 
-        {/* Form */}
+        {image && (
+          <img
+            src={image}
+            alt="Lost Pet"
+            className="w-full h-64 object-cover rounded-md mb-4"
+          />
+        )}
+
+        <label className="block text-gray-700 font-medium mb-2">Upload Pet Image</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="w-full p-2 border rounded-md mb-4"
+        />
+
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">Pet Name</label>
@@ -124,26 +145,33 @@ const LostPet = () => {
             {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
           </div>
 
-          <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">
-            Submit
-          </button>
+          <button>Submit</button>
+          <button>Download Poster</button>
         </form>
       </div>
 
-      {/* Currently Lost Pet Notices */}
-      <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md mt-6">
+      {/* Currently Lost Pets */}
+      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
         <h2 className="text-2xl font-bold text-center mb-4">Currently Lost Pets</h2>
         {lostPets.length > 0 ? (
           lostPets.map((pet) => (
-            <div key={pet.id} className="p-4 border rounded-md bg-gray-50 mb-4">
-              <img src={pet.image} alt={pet.name} className="w-full h-48 object-cover rounded-md mb-2" />
-              <h3 className="text-xl font-bold">{pet.name}</h3>
-              <p><strong>Last Seen:</strong> {pet.location}</p>
-              <p><strong>Contact:</strong> {pet.contact}</p>
+            <div key={pet.id} className="mb-4 p-4 bg-gray-50 border rounded-md shadow-sm">
+              <img
+                src={pet.image}
+                alt={pet.name}
+                className="w-full h-48 object-cover rounded-md mb-2"
+              />
+              <h3 className="text-xl font-bold text-center">{pet.name}</h3>
+              <p className="text-center">
+                <strong>Last Seen:</strong> {pet.location}
+              </p>
+              <p className="text-center">
+                <strong>Contact:</strong> {pet.contact}
+              </p>
             </div>
           ))
         ) : (
-          <p className="text-gray-500 text-center">No lost pet notices available at the moment.</p>
+          <p className="text-center text-gray-500">No lost pet notices available.</p>
         )}
       </div>
     </div>

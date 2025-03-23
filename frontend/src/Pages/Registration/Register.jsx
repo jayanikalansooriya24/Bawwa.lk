@@ -81,6 +81,7 @@ const Register = () => {
     const newErrors = {};
     if (!formData.pet.name.trim()) newErrors.petName = "Pet name is required";
     if (!formData.pet.breed.trim()) newErrors.petBreed = "Pet breed is required";
+    if (!formData.pet.birthday.trim()) newErrors.petName = "Pet Birthday is required";
     if (!formData.pet.age.trim()) newErrors.petAge = "Pet age is required";
     if (!formData.pet.gender) newErrors.petGender = "Pet gender is required";
     setErrors(newErrors);
@@ -115,11 +116,15 @@ const Register = () => {
       }
     };
 
-    console.log("🚀 Sending User Data to Context:", userData);  // ✅ Log user data before storing
+    console.log("🚀 Sending User Data to Context:", userData); // ✅ Debugging log before storing
 
     registerUser(userData); // ✅ Store in context
   
-    console.log("✅ Data should now be in StoreContext!");
+    setTimeout(() => {
+      console.log("✅ Data should now be in StoreContext!"); // ✅ Confirm function ran
+      alert("🎉 Registration Successful!"); // ✅ Show the alert after storing
+    }, 500); // ✅ Wait for state update before showing alert
+    
 
     // Reset form
     setStep(1);
@@ -152,6 +157,7 @@ const Register = () => {
           <input type="text" name="name" value={formData.pet.name} onChange={handlePetChange} placeholder="Pet Name" />
           {errors.petName && <p className="error">{errors.petName}</p>}
           <input type="text" name="breed" value={formData.pet.breed} onChange={handlePetChange} placeholder="Breed" />
+          <input type="text" name="birthday" value={formData.pet.birthday} onChange={handlePetChange} placeholder="Birthday" />
           <input type="text" name="age" value={formData.pet.age} onChange={handlePetChange} placeholder="Age" />
           <h3>Select Gender</h3>
 <div className="gender-container">

@@ -63,8 +63,13 @@
 .info-section p {
   font-size: 1.0rem;
   margin: 8px 0;
-  
-  
+
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
 }
 
 .info-section h2 {

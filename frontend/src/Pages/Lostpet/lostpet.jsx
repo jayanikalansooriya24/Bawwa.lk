@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./lostpet.css";
 import dog from "../../assets/2.jpeg";
 import cat from "../../assets/3.jpg";
+import jsPDF from "jspdf";
 
 const LostPet = () => {
   const [image, setImage] = useState(null);
@@ -11,6 +12,62 @@ const LostPet = () => {
     contact: "",
     description: ""
   });
+  const generatePoster = () => {
+    const { name, location, contact, description } = formData;
+  
+    // ✅ Check for empty fields or missing image
+    if (!image || !name.trim() || !location.trim() || !contact.trim() || !description.trim()) {
+      alert("❗ Please complete all fields and upload an image before generating the poster.");
+      return;
+    }
+  
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: [350, 500],
+    });
+  
+    fetch(image)
+      .then(res => res.blob())
+      .then(blob => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64data = reader.result;
+  
+          // === Poster layout ===
+          doc.setFillColor(255, 244, 228);
+          doc.rect(0, 0, 350, 500, "F");
+  
+          doc.setFontSize(24);
+          doc.setTextColor("#5c3d2e");
+          doc.setFont("helvetica", "bold");
+          doc.text("LOST PET!", 110, 40);
+  
+          doc.addImage(base64data, "PNG", 90, 60, 170, 130);
+  
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(12);
+          doc.setTextColor("#000");
+  
+          doc.text(`Pet Name: ${name}`, 30, 210);
+          doc.text(`Last Seen: ${location}`, 30, 230);
+          doc.text(`Contact: ${contact}`, 30, 250);
+          doc.text("Details:", 30, 270);
+          const lines = doc.splitTextToSize(description, 290);
+          doc.text(lines, 30, 285);
+  
+          doc.setFillColor("#a0522d");
+          doc.setTextColor("#fff");
+          doc.roundedRect(200, 420, 110, 30, 5, 5, "F");
+          doc.setFontSize(11);
+          doc.text("REWARD OFFERED", 210, 440);
+  
+          doc.save(`${name}_LostPetPoster.pdf`);
+        };
+        reader.readAsDataURL(blob);
+      });
+  };
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -146,7 +203,11 @@ const LostPet = () => {
           </div>
 
           <button>Submit</button>
-          <button>Download Poster</button>
+          <button onClick={generatePoster} className="download-btn">
+                Download Poster
+           </button>
+
+
         </form>
       </div>
 

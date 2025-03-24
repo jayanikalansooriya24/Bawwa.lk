@@ -2,12 +2,12 @@ import React, { useState, useRef, useContext } from "react";
 import { Dog, Cat, Upload, X, Venus, Mars } from "lucide-react";
 import { FaUser, FaPaw, FaEnvelope, FaPhone, FaCalendarAlt } from "react-icons/fa";
 import "./Register.css";
-import { StoreContext } from "../../context/StoreContext";
+
 
 const Register = () => {
   const [step, setStep] = useState(1);
   const fileInputRef = useRef(null);
-  const { registerUser } = useContext(StoreContext);
+  
 
   const [formData, setFormData] = useState({
     user: { firstName: "", lastName: "", email: "", phone: "" },
@@ -97,42 +97,49 @@ const Register = () => {
   };
 
   const prevStep = () => setStep((prev) => prev - 1);
-
-  const handleSubmit = () => {
-    const userData = {
-      firstName: formData.user.firstName,
-      lastName: formData.user.lastName,
-      email: formData.user.email,
-      phone: formData.user.phone,
-      pet: {
-        name: formData.pet.name,
-        type: formData.pet.type,
-        breed: formData.pet.breed,
-        age: formData.pet.age,
-        gender: formData.pet.gender,
-        birthdate: formData.pet.birthdate,
-        medicalConditions: formData.pet.medicalConditions,
-        image: formData.pet.image
-      }
-    };
-
-    console.log("🚀 Sending User Data to Context:", userData); // ✅ Debugging log before storing
-
-    registerUser(userData); // ✅ Store in context
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData.user,
+          password: "defaultPassword123",
+          pet: formData.pet,
+        }),
+      });
   
-    setTimeout(() => {
-      console.log("✅ Data should now be in StoreContext!"); // ✅ Confirm function ran
-      alert("🎉 Registration Successful!"); // ✅ Show the alert after storing
-    }, 500); // ✅ Wait for state update before showing alert
-    
-
+      const result = await response.json();
+  
+      if (response.ok) {
+        alert("🎉 Registration Successful!");
+      } else {
+        alert(`❗ Error: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("❌ Something went wrong. Please try again.");
+    }
+  
     // Reset form
     setStep(1);
     setFormData({
       user: { firstName: "", lastName: "", email: "", phone: "" },
-      pet: { name: "", type: "", breed: "", age: "", gender: "", birthdate: "", medicalConditions: "", image: null }
+      pet: {
+        name: "",
+        type: "",
+        breed: "",
+        age: "",
+        gender: "",
+        birthdate: "",
+        medicalConditions: "",
+        image: null,
+      },
     });
   };
+  
 
   return (
     <div className="register-container">

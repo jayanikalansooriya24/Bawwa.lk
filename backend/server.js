@@ -3,25 +3,23 @@ import cors from 'cors';
 import { connectDB } from './config/db.js';
 import userRouter from './routes/userRoute.js';
 
-// App config
 const app = express();
 const port = 5000;
 
-// Middleware
-app.use(express.json());
+// 🚀 Fix for large payloads (Base64 image data)
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
 app.use(cors());
 
-// Database connection
 connectDB();
 
-// API endpoints
 app.use('/api/user', userRouter);
 
 app.get('/', (req, res) => {
-    res.send('API is working!');
+  res.send('API is working!');
 });
 
-// Start server
 app.listen(port, () => {
-    console.log(`Server started on http://localhost:${port}`);
+  console.log(`Server started on http://localhost:${port}`);
 });

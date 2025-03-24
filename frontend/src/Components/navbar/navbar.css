@@ -1,5 +1,20 @@
-/* Navbar Styles */
-header {
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f6f2;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh;
+    box-sizing: border-box;
+    flex-direction: column;
+  }
+  
+  /* Header Styles */
+  header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,32 +27,32 @@ header {
     left: 0;
     right: 0;
     z-index: 1000;
-}
-
-header h1 {
-    color: #F97316;
+  }
+  
+  header h1 {
+    color: #f97316;
     font-size: 1.8rem;
     font-weight: bold;
-}
-
-nav {
+  }
+  
+  nav {
     display: flex;
     gap: 20px;
-}
-
-nav a {
+  }
+  
+  nav a {
     text-decoration: none;
     color: black;
     font-size: 1rem;
     transition: color 0.3s;
-}
-
-nav a:hover {
-    color: #F97316;
-}
-
-button {
-    background-color: #F97316;
+  }
+  
+  nav a:hover {
+    color: #f97316;
+  }
+  
+  button {
+    background-color: #f97316;
     color: white;
     padding: 12px 24px;
     border: none;
@@ -45,8 +60,97 @@ button {
     cursor: pointer;
     transition: background 0.3s;
     font-size: 1rem;
-}
-
-button:hover {
+  }
+  
+  button:hover {
     background-color: #ea580c;
-}
+  }
+  
+  /* Cart Icon Styles */
+  .cart-icon-container {
+    position: fixed;
+    top: 90px; /* Add gap between header and cart icon */
+    right: 20px;
+    z-index: 1100;
+  }
+  
+  .cart-icon {
+    font-size: 30px;
+    cursor: pointer;
+    color: #f97316;
+  }
+  
+  .cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    background-color: red;
+    border-radius: 50%;
+    color: white;
+  }
+  
+  /* Main Pet Model Container */
+  .pet-model-container {
+    display: flex;
+    justify-content: space-between; /* Adjust to make space between 3D model and accessories */
+    align-items: flex-start;
+    gap: 10px;
+    padding: 30px;
+    max-width: 1000px;
+    margin: 50px auto;
+    flex-wrap: wrap; /* Ensure content wraps on smaller screens */
+    flex-grow: 1; /* Allow the container to grow and take remaining space */
+    margin-bottom: 30px; /* Space between pet model container and footer */
+    max-height: 80vh; /* Set max height to keep it responsive */
+  }
+  
+  /* Pet Content (3D Model Section) */
+  .pet-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48%; /* Takes almost half of the container */
+  }
+  
+  /* Pet Canvas (3D Model Display) */
+  .pet-canvas-container {
+    width: 100%;
+    height: 300px; /* Fixed height, adjust as necessary */
+    background-color: #c48b8b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden; /* Ensure the model doesn't overflow the container */
+  }
+  
+  /* Accessories Section */
+  .pet-accessories-container {
+    width: 48%; /* Takes the remaining space */
+    background-color: #fadbb1;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    max-height: 80vh;
+    min-height: 200px;
+    overflow-y: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Footer */
+  footer {
+    height: 80px;
+    background-color: #f8f6f2;
+    position: relative;
+    z-index: 1;
+  }
+  

@@ -1,90 +1,97 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useCart } from "../CartPage/CartContext";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import { useGLTF } from "@react-three/drei";
-import "../CartPage/CartPage.css";
+import { OrbitControls, useGLTF } from "@react-three/drei";
+import { useNavigate } from "react-router-dom";
+import "./CartPage.css";
 
-const CartPage = ({ cart, setCart }) => {
+const CartPage = () => {
+  const { cart, setCart } = useCart();
+  const [selectedItems, setSelectedItems] = useState(cart.map((item) => item.file));
   const navigate = useNavigate();
 
-  const handleDeleteItem = (itemToDelete) => {
-    setCart(cart.filter((item) => item !== itemToDelete));
+  const removeItem = (file) => {
+    setCart((prevCart) => prevCart.filter((item) => item.file !== file));
+    setSelectedItems((prevSelected) => prevSelected.filter((item) => item !== file));
   };
 
-  const handleIncreaseQuantity = (item) => {
-    setCart(
-      cart.map((cartItem) =>
-        cartItem === item
-          ? { ...cartItem, quantity: cartItem.quantity + 1 }
-          : cartItem
+  const updateQuantity = (file, newQuantity) => {
+    if (newQuantity < 1) return;
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.file === file ? { ...item, quantity: newQuantity } : item
       )
     );
   };
 
-  const handleDecreaseQuantity = (item) => {
-    if (item.quantity > 1) {
-      setCart(
-        cart.map((cartItem) =>
-          cartItem === item
-            ? { ...cartItem, quantity: cartItem.quantity - 1 }
-            : cartItem
-        )
-      );
-    }
+  const toggleItemSelection = (file) => {
+    setSelectedItems((prevSelected) =>
+      prevSelected.includes(file)
+        ? prevSelected.filter((item) => item !== file)
+        : [...prevSelected, file]
+    );
   };
 
-  // Safeguard against undefined or null cart
-  if (!Array.isArray(cart) || cart.length === 0) {
-    return <div className="empty-cart">Your cart is empty.</div>;
-  }
+  const totalPrice = cart
+    .filter((item) => selectedItems.includes(item.file))
+    .reduce((total, item) => total + item.price * item.quantity, 0);
+
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat("en-LK", {
+      style: "currency",
+      currency: "LKR",
+    }).format(price);
+  };
 
   return (
     <div className="cart-container">
-      <h2>Your Cart</h2>
       <div className="cart-items">
-        {cart.map((item) => (
-          <div key={item.file} className="cart-item">
-            <div className="cart-item-details">
-              <h3>{item.name}</h3>
-              <p>{item.description}</p>
-              <div className="cart-item-quantity">
-                <button
-                  className="quantity-btn"
-                  onClick={() => handleDecreaseQuantity(item)}
-                >
-                  -
-                </button>
-                <span>{item.quantity}</span>
-                <button
-                  className="quantity-btn"
-                  onClick={() => handleIncreaseQuantity(item)}
-                >
-                  +
-                </button>
+        <h2>Your Cart</h2>
+        {cart.length === 0 ? (
+          <p className="empty-cart">Your cart is empty.</p>
+        ) : (
+          cart.map((item) => (
+            <div key={item.file} className="cart-item">
+              <input
+                type="checkbox"
+                checked={selectedItems.includes(item.file)}
+                onChange={() => toggleItemSelection(item.file)}
+              />
+              <div className="cart-3d-model">
+                <Canvas>
+                  <ambientLight intensity={0.5} />
+                  <directionalLight position={[10, 10, 5]} intensity={1} />
+                  <OrbitControls />
+                  <AccessoryModel file={item.file} />
+                </Canvas>
+              </div>
+              <div className="cart-details">
+                <h3>{item.name}</h3>
+                <p>{item.description}</p>
+                <p className="cart-price">Price per item: {formatPrice(item.price)}</p>
+                <p className="cart-total">Total: {formatPrice(item.price * item.quantity)}</p>
+                <div className="quantity-selector">
+                  <button onClick={() => updateQuantity(item.file, item.quantity - 1)}> - </button>
+                  <span>{item.quantity}</span>
+                  <button onClick={() => updateQuantity(item.file, item.quantity + 1)}> + </button>
+                </div>
+                <button className="remove-btn" onClick={() => removeItem(item.file)}>Remove</button>
               </div>
             </div>
-            <div className="cart-item-preview">
-              <Canvas>
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[10, 10, 5]} intensity={1} />
-                <OrbitControls />
-                <AccessoryModel file={item.file} />
-              </Canvas>
-            </div>
-            <button
-              className="delete-item-btn"
-              onClick={() => handleDeleteItem(item)}
-            >
-              Delete
-            </button>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
-      <div className="cart-actions">
-        <button className="checkout-btn" onClick={() => navigate("/checkout")}>
-          Checkout
+      <div className="payment-summary">
+        <p className="total-price">
+          Total Price: <strong>{formatPrice(totalPrice)}</strong>
+        </p>
+        <button
+          className="pay-now-btn"
+          disabled={selectedItems.length === 0}
+          onClick={() => navigate("/paymentPortal", { state: { total: totalPrice } })}
+        >
+          Pay Now
         </button>
       </div>
     </div>

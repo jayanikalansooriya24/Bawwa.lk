@@ -1,25 +1,31 @@
-// src/contexts/CartContext.js
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 
-// Create the Cart Context
 const CartContext = createContext();
 
-// CartProvider component to wrap the app and provide cart state
+export const useCart = () => {
+  return useContext(CartContext);
+};
+
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
   const addToCart = (item) => {
-    setCart((prevCart) => [...prevCart, item]);
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((cartItem) => cartItem.file === item.file);
+      if (existingItem) {
+        return prevCart.map((cartItem) =>
+          cartItem.file === item.file
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        );
+      }
+      return [...prevCart, { ...item, quantity: 1 }];
+    });
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart }}>
+    <CartContext.Provider value={{ cart, addToCart, setCart }}>
       {children}
     </CartContext.Provider>
   );
-};
-
-// Custom hook to access the cart context
-export const useCart = () => {
-  return useContext(CartContext);
 };

@@ -1,103 +1,160 @@
+/* Global Layout Styles (Make sure this is applied across your whole app) */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensure the html and body elements take the full height */
+  display: flex;
+  flex-direction: column;
+  overflow: auto; /* Enables scrolling */
+}
+
+header {
+  /* Navbar styles here */
+  flex-shrink: 0; /* Prevents navbar from shrinking */
+}
+
+footer {
+  /* Footer styles here */
+  flex-shrink: 0; /* Prevents footer from shrinking */
+  margin-top: auto; /* Push footer to the bottom */
+}
+
+/* Cart Page Styles */
 .cart-container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .cart-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .cart-item {
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  flex-grow: 1; /* Makes this section grow and take available space */
+  overflow: hidden;
+}
+
+.cart-items {
+  width: 70%;
+  max-width: 800px;
+  max-height: calc(100vh - 120px); /* Ensure this is scrollable and between header/footer */
+  overflow-y: auto;
+}
+
+/* Payment summary section */
+.payment-summary {
+  width: 30%;
+  max-width: 350px; /* Ensure it doesn't get too wide */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  top: 20px;
+  height: fit-content; /* Ensure the height adjusts based on content */
+  border: 1px solid #ddd; /* Light border around the summary */
+}
+
+/* Total price styling */
+.total-price {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px; /* Adds spacing between total price and button */
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee; /* Adds a subtle separator */
+}
+
+/* Pay Now button styling */
+.pay-now-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Pay Now button hover effect */
+.pay-now-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px); /* Adds a lift effect on hover */
+}
+
+/* Pay Now button disabled state */
+.pay-now-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Mobile responsiveness: */
+@media (max-width: 768px) {
+  .payment-summary {
     width: 100%;
-    max-width: 600px;
-    justify-content: space-between;
+    padding: 15px;
   }
-  
-  .cart-item-details {
-    flex: 1;
-    margin-right: 20px;
+
+  .total-price {
+    font-size: 1.5rem;
   }
-  
-  .cart-item h3 {
-    margin: 0;
-    font-size: 18px;
+
+  .pay-now-btn {
+    font-size: 1.1rem;
+    padding: 12px;
   }
-  
-  .cart-item p {
-    margin-top: 5px;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .cart-item-quantity {
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .quantity-btn {
-    padding: 5px 10px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .quantity-btn:hover {
-    background: #0056b3;
-  }
-  
-  .cart-item-preview {
-    width: 150px;
-    height: 150px;
-  }
-  
-  .delete-item-btn {
-    background: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .delete-item-btn:hover {
-    background: #e60000;
-  }
-  
-  .cart-actions {
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .checkout-btn {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .checkout-btn:hover {
-    background: #218838;
-  }
-  
-  .empty-cart {
-    text-align: center;
-    font-size: 18px;
-    color: #888;
-  }
-  
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  position: relative;
+}
+
+.cart-details {
+  width: 60%;
+  padding-left: 20px;
+}
+
+.cart-3d-model {
+  width: 100px;
+  height: 100px;
+}
+
+.remove-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.remove-btn:hover {
+  background-color: darkred;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.quantity-selector button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.quantity-selector span {
+  margin: 0 10px;
+  font-size: 18px;
+}

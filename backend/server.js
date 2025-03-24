@@ -1,27 +1,28 @@
-import express from "express"
-import cors from "cors"
-import { connect } from "mongoose"
-import { connectDB } from "./config/db.js"
+import express from "express";
+import cors from "cors";
+import { connectDB } from "./config/db.js";
+import paymentRoutes from "./routes/Payment.js";  // Import your routes
 
+// App config
+const app = express();
+const port = 5000;
 
+// Middleware
+app.use(express.json());
+app.use(cors());
 
-//app config
-const app = express()
-const port = 5000
-
-//middleware
-app.use(express.json())
-app.use(cors())
-
-//db connection
+// DB connection
 connectDB();
 
-app.get("/",(req,res)=>{
-    res.send("API Working")
-})
+// Register routes (e.g., /api/payment)
+app.use("/api", paymentRoutes);
 
-app.listen(port,()=>{
-    console.log(`Server Started on http://localhost:${port}`)
-})
+// Test route
+app.get("/", (req, res) => {
+  res.send("API Working");
+});
 
-//mongodb+srv://Bawwalk:<db_password>@cluster0.lkela.mongodb.net/?
+// Start the server
+app.listen(port, () => {
+  console.log(`Server started on http://localhost:${port}`);
+});

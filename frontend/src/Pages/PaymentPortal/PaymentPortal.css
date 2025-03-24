@@ -1,0 +1,192 @@
+/* Ensure the body and html take up full height and allow scrolling */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto; /* Allow scrolling if needed */
+  }
+  
+  /* Use flexbox to center the payment container */
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4; /* Optional background color */
+  }
+  
+  /* Payment container */
+  .payment-container {
+    width: 350px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    max-height: 90vh; /* Allow the container to take up maximum 90% of the screen height */
+    overflow-y: auto; /* Allow scrolling inside the container */
+  }
+  
+  /* Title and description */
+  .payment-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .payment-container p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Form styling */
+  .payment-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Label and input fields */
+  .payment-container label {
+    text-align: left;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .payment-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Buttons */
+  .payment-container button {
+    margin-top: 15px;
+    padding: 12px;
+    font-size: 16px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .payment-container button:hover {
+    background: #218838;
+  }
+  
+  .payment-container button:last-child {
+    background: #dc3545;
+  }
+  
+  .payment-container button:last-child:hover {
+    background: #c82333;
+  }
+/* Overlay for the modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* Modal content */
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Modal button */
+  .modal-content button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .modal-content button:hover {
+    background-color: #0056b3;
+  }
+    /* Error message styling */
+.error-message {
+    color: red;
+    font-size: 12px; /* Decrease font size */
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+  
+  /* You can also add other styles for the form inputs and buttons */
+  .payment-container {
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  label {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+  }

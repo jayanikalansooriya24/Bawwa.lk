@@ -129,3 +129,9 @@
 .btn.red:hover {
   background-color: #a71d2a;
 }
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}

@@ -10,93 +10,25 @@ const LostPet = () => {
     name: "",
     location: "",
     contact: "",
-    description: ""
+    description: "",
   });
-  const generatePoster = () => {
-    const { name, location, contact, description } = formData;
-  
-    // ✅ Check for empty fields or missing image
-    if (!image || !name.trim() || !location.trim() || !contact.trim() || !description.trim()) {
-      alert("❗ Please complete all fields and upload an image before generating the poster.");
-      return;
-    }
-  
-    const doc = new jsPDF({
-      orientation: "portrait",
-      unit: "px",
-      format: [350, 500],
-    });
-  
-    fetch(image)
-      .then(res => res.blob())
-      .then(blob => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const base64data = reader.result;
-  
-          // === Poster layout ===
-          doc.setFillColor(255, 244, 228);
-          doc.rect(0, 0, 350, 500, "F");
-  
-          doc.setFontSize(24);
-          doc.setTextColor("#5c3d2e");
-          doc.setFont("helvetica", "bold");
-          doc.text("LOST PET!", 110, 40);
-  
-          doc.addImage(base64data, "PNG", 90, 60, 170, 130);
-  
-          doc.setFont("helvetica", "normal");
-          doc.setFontSize(12);
-          doc.setTextColor("#000");
-  
-          doc.text(`Pet Name: ${name}`, 30, 210);
-          doc.text(`Last Seen: ${location}`, 30, 230);
-          doc.text(`Contact: ${contact}`, 30, 250);
-          doc.text("Details:", 30, 270);
-          const lines = doc.splitTextToSize(description, 290);
-          doc.text(lines, 30, 285);
-  
-          doc.setFillColor("#a0522d");
-          doc.setTextColor("#fff");
-          doc.roundedRect(200, 420, 110, 30, 5, 5, "F");
-          doc.setFontSize(11);
-          doc.text("REWARD OFFERED", 210, 440);
-  
-          doc.save(`${name}_LostPetPoster.pdf`);
-        };
-        reader.readAsDataURL(blob);
-      });
-  };
-  
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validateForm()) {
-      const newPet = {
-        id: lostPets.length + 1,
-        name: formData.name,
-        location: formData.location,
-        contact: formData.contact,
-        image: image || "" // fallback in case image is null
-      };
-  
-      setLostPets([newPet, ...lostPets]); // Add new pet to the top of the list
-      alert("Lost pet reported successfully!");
-  
-      // Reset form
-      setFormData({ name: "", location: "", contact: "", description: "" });
-      setImage(null);
-      setErrors({});
-    }
-  };
-  
   const [errors, setErrors] = useState({});
-
   const [lostPets, setLostPets] = useState([
-    { id: 1, name: "Buddy", location: "Central Park, Malabe", contact: "(071) 456-7890", image: dog },
-    { id: 2, name: "Luna", location: "Sunset Blvd, Kaduwela", contact: "(076) 654-3210", image: cat }
+    {
+      id: 1,
+      name: "Buddy",
+      location: "Central Park, Malabe",
+      contact: "(071) 456-7890",
+      image: dog,
+    },
+    {
+      id: 2,
+      name: "Luna",
+      location: "Sunset Blvd, Kaduwela",
+      contact: "(076) 654-3210",
+      image: cat,
+    },
   ]);
-  
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -125,6 +57,133 @@ const LostPet = () => {
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      const newPet = {
+        id: lostPets.length + 1,
+        name: formData.name,
+        location: formData.location,
+        contact: formData.contact,
+        image: image || "",
+      };
+
+      setLostPets([newPet, ...lostPets]);
+      alert("Lost pet reported successfully!");
+
+      // ✅ Generate the poster after successful form submission
+      generatePoster();
+
+      // Reset form after download
+      setFormData({ name: "", location: "", contact: "", description: "" });
+      setImage(null);
+      setErrors({});
+    }
+  };
+  const generatePoster = () => {
+    const { name, location, contact, description } = formData;
+
+    if (!image || !name || !location || !contact || !description) {
+      alert("❗ Please complete all fields and upload an image before generating the poster.");
+      return;
+    }
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: [400, 600],
+    });
+
+    fetch(image)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64Image = reader.result;
+
+          // 🎨 Background
+          doc.setFillColor("#fffbe6"); // Soft yellowish background
+          doc.rect(0, 0, 400, 600, "F");
+
+          // Poster Border
+          doc.setDrawColor("#000"); // black
+          doc.setLineWidth(2);
+          doc.rect(10, 10, 380, 580); // inner border
+
+          // Title (Centered)
+          const title = "LOST PET";
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(28);
+          doc.setTextColor("#e63946");
+
+          const titleWidth = doc.getTextWidth(title);
+          const pageWidth = doc.internal.pageSize.getWidth();
+          const centerX = (pageWidth - titleWidth) / 2;
+          doc.text(title, centerX, 40);
+
+
+
+          // 🖼️ Pet Image
+          doc.addImage(base64Image, "JPEG", 100, 60, 200, 160);
+
+          // 📝 Info Section Background
+          doc.setFillColor("#ffffff");
+          doc.roundedRect(30, 240, 340, 250, 10, 10, "F");
+
+          // 📝 Info Section Text
+          const labelColor = "#1d3557";
+          const valueColor = "#000";
+
+          let y = 270;
+          const lineGap = 30;
+
+          doc.setFontSize(14);
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(labelColor);
+          doc.text("Name:", 40, y);
+          doc.setFont("helvetica", "normal");
+          doc.setTextColor(valueColor);
+          doc.text(name, 120, y);
+
+          y += lineGap;
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(labelColor);
+          doc.text("Last Seen:", 40, y);
+          doc.setFont("helvetica", "normal");
+          doc.setTextColor(valueColor);
+          doc.text(location, 120, y);
+
+          y += lineGap;
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(labelColor);
+          doc.text("Contact:", 40, y);
+          doc.setFont("helvetica", "normal");
+          doc.setTextColor(valueColor);
+          doc.text(contact, 120, y);
+
+          y += lineGap;
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(labelColor);
+          doc.text("Description:", 40, y);
+          doc.setFont("helvetica", "normal");
+          doc.setTextColor(valueColor);
+          const descLines = doc.splitTextToSize(description, 280);
+          doc.text(descLines, 120, y);
+
+          // 💸 Reward Box
+          doc.setFillColor("#ff0000");
+          doc.setTextColor("#fff");
+          doc.roundedRect(120, 520, 160, 40, 8, 8, "F");
+          doc.setFontSize(14);
+          doc.setFont("helvetica", "bold");
+          doc.text("REWARD OFFERED", 145, 545);
+
+          // 💾 Save PDF
+          doc.save(`${name}_LostPetPoster.pdf`);
+        };
+        reader.readAsDataURL(blob);
+      });
+  };
 
 
   return (
@@ -134,11 +193,7 @@ const LostPet = () => {
         <h1 className="text-3xl font-bold text-center mb-6">Report a Lost Pet</h1>
 
         {image && (
-          <img
-            src={image}
-            alt="Lost Pet"
-            className="w-full h-64 object-cover rounded-md mb-4"
-          />
+          <img src={image} alt="Lost Pet" className="w-full h-64 object-cover rounded-md mb-4" />
         )}
 
         <label className="block text-gray-700 font-medium mb-2">Upload Pet Image</label>
@@ -202,12 +257,18 @@ const LostPet = () => {
             {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
           </div>
 
-          <button>Submit</button>
-          <button onClick={generatePoster} className="download-btn">
-                Download Poster
-           </button>
-
-
+          <div className="flex justify-between">
+            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+              Submit
+            </button>
+            <button
+              type="button"
+              onClick={generatePoster}
+              className="bg-orange-500 text-white px-4 py-2 rounded-md"
+            >
+              Download Poster
+            </button>
+          </div>
         </form>
       </div>
 
@@ -216,17 +277,20 @@ const LostPet = () => {
         <h2 className="text-2xl font-bold text-center mb-4">Currently Lost Pets</h2>
         {lostPets.length > 0 ? (
           lostPets.map((pet) => (
-            <div key={pet.id} className="mb-4 p-4 bg-gray-50 border rounded-md shadow-sm">
+            <div
+              key={pet.id}
+              className="mb-4 p-4 bg-gray-50 border rounded-md shadow-sm text-center"
+            >
               <img
                 src={pet.image}
                 alt={pet.name}
                 className="w-full h-48 object-cover rounded-md mb-2"
               />
-              <h3 className="text-xl font-bold text-center">{pet.name}</h3>
-              <p className="text-center">
+              <h3 className="text-xl font-bold">{pet.name}</h3>
+              <p>
                 <strong>Last Seen:</strong> {pet.location}
               </p>
-              <p className="text-center">
+              <p>
                 <strong>Contact:</strong> {pet.contact}
               </p>
             </div>

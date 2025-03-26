@@ -1,89 +1,88 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./userprofile.css";
-import { StoreContext } from "../../context/StoreContext";
 
 const UserProfile = () => {
-  const { users, setUsers } = useContext(StoreContext);
-  const [latestUser, setLatestUser] = useState(null);
+  const [user, setUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({});
 
   useEffect(() => {
-    if (users.length > 0) {
-      const lastUser = users[users.length - 1];
-      setLatestUser(lastUser);
-      setFormData({ ...lastUser });
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/user/latest");
+        const data = await res.json();
+        if (res.ok) setUser(data);
+        else console.error("User not found");
+      } catch (err) {
+        console.error("Error fetching user:", err);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this profile?");
+    if (!confirmDelete) return;
+  
+    try {
+      const res = await fetch("http://localhost:5000/api/user/latest", {
+        method: "DELETE",
+      });
+      const data = await res.json();
+  
+      if (res.ok) {
+        alert("🗑️ User deleted successfully!");
+        setUser(null); // clear the profile
+      } else {
+        alert("❌ Failed to delete user: " + data.message);
+      }
+    } catch (error) {
+      console.error("Delete error:", error);
+      alert("❌ Something went wrong!");
     }
-  }, [users]);
-
-  if (!latestUser) {
-    return <p>No user profile found. Please register first.</p>;
-  }
-
+  };
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.startsWith("pet.")) {
-      const key = name.split(".")[1];
-      setFormData((prev) => ({
-        ...prev,
-        pet: {
-          ...prev.pet,
-          [key]: value,
-        },
-      }));
+      const field = name.split(".")[1];
+      setUser((prev) => ({ ...prev, pet: { ...prev.pet, [field]: value } }));
     } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+      setUser((prev) => ({ ...prev, [name]: value }));
     }
   };
 
-  const handleUpdate = () => {
-    const updatedUsers = [...users];
-    updatedUsers[updatedUsers.length - 1] = formData;
-    setUsers(updatedUsers);
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-    setLatestUser(formData);
-    setIsEditing(false);
-  };
+  if (!user) return <p>Loading...</p>;
 
-  const { firstName, lastName, email, phone, pet } = formData;
+  const { firstName, lastName, email, phone, pet } = user;
 
   return (
     <div className="profile-container">
-      <h1 className="profile-title"><span className="icon">👤</span>My Profile</h1>
+      <h1 className="profile-title">👤 My Profile</h1>
       <div className="profile-content">
-      <div className="profile-image">
-          {pet.image ? (
-            <img src={pet.image} alt="Pet Profile" />
-          ) : (
-            <img src="https://via.placeholder.com/150" alt="Pet Profile" />
-          )}
+        <div className="profile-image">
+          <img src={pet.image || "https://via.placeholder.com/150"} alt="Pet" />
         </div>
         <div className="profile-details">
-          
-          <div className="info-section">
           <h2>Pet Information</h2>
-            {isEditing ? (
-              <>
-            
-                <input name="pet.name" value={pet.name} onChange={handleChange} />
-                <input name="pet.age" value={pet.age} onChange={handleChange} />
-                <input name="pet.gender" value={pet.gender} onChange={handleChange} />
-                <input name="pet.breed" value={pet.breed} onChange={handleChange} />
-                <input name="pet.type" value={pet.type} onChange={handleChange} />
-              </>
-            ) : (
-              <>
-                <p><strong>Pet Name:</strong> {pet.name}</p>
-                <p><strong>Age:</strong> {pet.age}</p>
-                <p><strong>Gender:</strong> {pet.gender}</p>
-                <p><strong>Breed:</strong> {pet.breed}</p>
-                <p><strong>Type:</strong> {pet.type}</p>
-              </>
-            )}
-          </div>
+          {isEditing ? (
+            <>
+              <input name="pet.name" value={pet.name} onChange={handleChange} />
+              <input name="pet.age" value={pet.age} onChange={handleChange} />
+              <input name="pet.gender" value={pet.gender} onChange={handleChange} />
+              <input name="pet.breed" value={pet.breed} onChange={handleChange} />
+              <input name="pet.type" value={pet.type} onChange={handleChange} />
+            </>
+          ) : (
+            <>
+              <p><strong>Name:</strong> {pet.name}</p>
+              <p><strong>Age:</strong> {pet.age}</p>
+              <p><strong>Gender:</strong> {pet.gender}</p>
+              <p><strong>Breed:</strong> {pet.breed}</p>
+              <p><strong>Type:</strong> {pet.type}</p>
+            </>
+          )}
         </div>
       </div>
-
       <div className="owner-info">
         <h2>Owner Information</h2>
         {isEditing ? (
@@ -95,26 +94,19 @@ const UserProfile = () => {
           </>
         ) : (
           <>
-          
             <p><strong>First Name:</strong> {firstName}</p>
             <p><strong>Last Name:</strong> {lastName}</p>
             <p><strong>Email:</strong> {email}</p>
-            <p><strong>Phone No:</strong> {phone}</p>
+            <p><strong>Phone:</strong> {phone}</p>
           </>
         )}
       </div>
-
       <div className="profile-buttons">
-        <button className="btn blue">My Appointments</button>
-        <button className="btn blue">Upcoming Vaccination</button>
+        <button className="btn blue">Appointments</button>
+        <button className="btn blue">Vaccinations</button>
+        <button className="btn green" onClick={() => setIsEditing(!isEditing)}>{isEditing ? "Save" : "Update"}</button>
+        <button className="btn red" onClick={handleDelete}>Delete</button>
 
-        {isEditing ? (
-          <button className="btn green" onClick={handleUpdate}>Save</button>
-        ) : (
-          <button className="btn blue" onClick={() => setIsEditing(true)}>Update</button>
-        )}
-
-        <button className="btn red">Delete</button>
       </div>
     </div>
   );

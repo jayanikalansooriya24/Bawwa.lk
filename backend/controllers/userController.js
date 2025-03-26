@@ -56,4 +56,30 @@ const registerUser = async (req, res) => {
   }
 };
 
-export { registerUser };
+const getLatestUser = async (req, res) => {
+  try {
+    const latestUser = await userModel.findOne().sort({ _id: -1 });
+    if (!latestUser) return res.status(404).json({ message: "No user found" });
+    res.status(200).json(latestUser);
+  } catch (err) {
+    res.status(500).json({ message: "Error retrieving user" });
+  }
+};
+
+// DELETE user
+const deleteLatestUser = async (req, res) => {
+  try {
+    const latestUser = await userModel.findOne().sort({ _id: -1 });
+    if (!latestUser) {
+      return res.status(404).json({ message: "No user found" });
+    }
+
+    await userModel.findByIdAndDelete(latestUser._id);
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export { registerUser, getLatestUser, deleteLatestUser };

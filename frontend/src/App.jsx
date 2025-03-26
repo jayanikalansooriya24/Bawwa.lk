@@ -9,6 +9,8 @@ import UserProfile from "./Pages/Userprofile/userprofile";
 import LostPet from "./Pages/Lostpet/LostPet";
 import { StoreProvider } from "./context/StoreContext";
 import DebugLogger from "./components/DebugLogger";
+import UserAdmin from "./Pages/UserAdmin/useradmin";
+import Login from "./Pages/Login/login";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/userprofile" element={<UserProfile />} />
             <Route path="/lostpet" element={<LostPet />} />
+            <Route path="/admin" element={<UserAdmin />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </main>
         <Footer />

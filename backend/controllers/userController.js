@@ -82,4 +82,5 @@ const deleteLatestUser = async (req, res) => {
   }
 };
 
+
 export { registerUser, getLatestUser, deleteLatestUser };

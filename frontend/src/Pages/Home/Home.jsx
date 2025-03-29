@@ -1,24 +1,29 @@
 import React from "react";
 import "./Home.css";
+// Import the images 
+import dogImage from "../../assets/dog1.png";
+import rabbitImage from "../../assets/rabbit1.png";
+import catImage from "../../assets/cat1.png";
 
 const Home = () => {
   return (
-    <div className="bg-[#F8F6F2] text-gray-900 font-sans">
-     
-
+    <div className="home-container">
       {/* Hero Section */}
-      <section className="text-center py-16 px-6">
-        <h2 className="text-5xl font-bold leading-tight">WHERE EVERY <br /> PET'S JOY BEGINS!</h2>
-        <p className="text-lg mt-4 text-gray-700">
-          We know your pets are cherished members of your family. <br />
-          That’s why we provide loving, personalized pet sitting services tailored to their needs.
-        </p>
-        <button className="mt-6 bg-orange-500 text-white px-6 py-3 rounded-md hover:bg-orange-600">
-          BOOK NOW
-        </button>
+      <section className="hero-section">
+        <div className="hero-content">
+          <div className="hero-images">
+            <img src={dogImage} alt="Dog" className="hero-pet-image hero-pet-image-dog" />
+            <img src={rabbitImage} alt="Rabbit" className="hero-pet-image hero-pet-image-rabbit" />
+            <img src={catImage} alt="Cat" className="hero-pet-image hero-pet-image-cat" />
+          </div>
+          <h2 className="hero-title">WHERE EVERY <br /> PET'S JOY BEGINS!</h2>
+          <p className="hero-text">
+            We know your pets are cherished members of your family. <br />
+            That’s why we provide loving, personalized pet sitting services tailored to their needs.
+          </p>
+          <button className="book-button">Book Now</button>
+        </div>
       </section>
-      
- 
     </div>
   );
 };

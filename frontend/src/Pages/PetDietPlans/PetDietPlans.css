@@ -1,0 +1,65 @@
+/* PetDietPlans.css */
+.pet-diet-plans {
+  margin: 20px;
+}
+
+.pet-diet-plans form {
+  display: flex;
+  flex-direction: column;
+}
+
+.pet-diet-plans label {
+  margin-top: 10px;
+}
+
+.pet-diet-plans input {
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.pet-diet-plans button {
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Dialog styles */
+.diet-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.diet-dialog-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 400px;
+  width: 90%;
+}
+
+.diet-dialog-content h3 {
+  margin-top: 0;
+  color: #4caf50;
+}
+
+.diet-dialog-content p {
+  margin: 10px 0;
+}
+
+.diet-dialog-content button {
+  background-color: #e75906;
+  width: 100%;
+}

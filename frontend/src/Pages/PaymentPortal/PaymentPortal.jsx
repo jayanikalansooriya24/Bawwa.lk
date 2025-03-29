@@ -107,7 +107,7 @@ const PaymentPortal = () => {
   return (
     <div className="payment-container">
       <h2>Payment Portal</h2>
-      <p>Total Amount: ${total.toFixed(2)}</p>
+      <p>Total Amount: LKR {total.toFixed(2)}</p>
       <form onSubmit={handleSubmit}>
         <label>Card Number:</label>
         <input

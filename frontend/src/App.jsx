@@ -10,6 +10,7 @@ import PetAccessories from "./Pages/PetAccessories/PetAccessories";
 import CartPage from "./Pages/CartPage/CartPage";
 import { CartProvider } from "./Pages/CartPage/CartContext";
 import PaymentPortal from "./Pages/PaymentPortal/PaymentPortal";
+import PetImageTo3D from "./Pages/PetImageConverter/PetImageTo3D ";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/PetModel" element={<PetModel pet="dog" />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/paymentPortal" element={<PaymentPortal/>}/>
+            <Route path="/petimage3D" element={<PetImageTo3D/>}/>
           </Routes>
         </div>
         <Footer />

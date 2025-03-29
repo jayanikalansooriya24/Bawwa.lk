@@ -1,160 +1,292 @@
-/* Global Layout Styles (Make sure this is applied across your whole app) */
+/* Global Layout Styles */
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%; /* Ensure the html and body elements take the full height */
+  height: 100%; /* Full viewport height */
   display: flex;
-  flex-direction: column;
-  overflow: auto; /* Enables scrolling */
+  flex-direction: column; /* Stack header, body, footer vertically */
+  font-family: 'Poppins', 'Arial', sans-serif; /* Modern font */
+  overflow: hidden; /* Prevent body from scrolling, delegate to content */
 }
 
+body {
+  background: linear-gradient(135deg, #fef9e7, #f5e9d4); /* Warm gradient */
+  color: #2d3436;
+}
+
+/* Header Styles (Full-width, fixed) */
 header {
-  /* Navbar styles here */
-  flex-shrink: 0; /* Prevents navbar from shrinking */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  background: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100vw; /* Full viewport width */
+  max-width: 100%;
+  position: fixed; /* Fixed at top */
+  top: 0;
+  left: 0;
+  z-index: 10;
+  box-sizing: border-box;
+  height: 80px; /* Fixed height for header */
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
-footer {
-  /* Footer styles here */
-  flex-shrink: 0; /* Prevents footer from shrinking */
-  margin-top: auto; /* Push footer to the bottom */
+header h1 {
+  color: #ff6f61;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
 }
 
-/* Cart Page Styles */
+header h1:hover {
+  color: #e65b50;
+}
+
+/* Main Content (Cart Container) */
 .cart-container {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
-  flex-grow: 1; /* Makes this section grow and take available space */
-  overflow: hidden;
+  padding: 30px;
+  flex-grow: 1; /* Grow to fill available space */
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  overflow-y: auto; /* Enable vertical scrolling */
+  min-height: 0; /* Allow shrinking if content is small */
+  margin-top: 80px; /* Offset for fixed header */
+  margin-bottom: 100px; /* Offset for footer */
+  max-height: calc(100vh - 180px); /* Limit height to viewport minus header/footer */
+  box-sizing: border-box;
 }
 
+/* Cart Items */
 .cart-items {
-  width: 70%;
-  max-width: 800px;
-  max-height: calc(100vh - 120px); /* Ensure this is scrollable and between header/footer */
-  overflow-y: auto;
+  width: 65%;
+  padding-right: 20px;
 }
 
-/* Payment summary section */
-.payment-summary {
-  width: 30%;
-  max-width: 350px; /* Ensure it doesn't get too wide */
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: sticky;
-  top: 20px;
-  height: fit-content; /* Ensure the height adjusts based on content */
-  border: 1px solid #ddd; /* Light border around the summary */
-}
-
-/* Total price styling */
-.total-price {
-  font-size: 1.75rem;
+.cart-items h2 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
   font-weight: 600;
-  color: #333;
-  margin-bottom: 20px; /* Adds spacing between total price and button */
-  text-align: center;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee; /* Adds a subtle separator */
 }
 
-/* Pay Now button styling */
-.pay-now-btn {
-  width: 100%;
-  padding: 15px;
+.empty-cart {
   font-size: 1.2rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  color: #7f8c8d;
+  text-align: center;
+  padding: 20px;
 }
 
-/* Pay Now button hover effect */
-.pay-now-btn:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px); /* Adds a lift effect on hover */
-}
-
-/* Pay Now button disabled state */
-.pay-now-btn:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-}
-
-/* Mobile responsiveness: */
-@media (max-width: 768px) {
-  .payment-summary {
-    width: 100%;
-    padding: 15px;
-  }
-
-  .total-price {
-    font-size: 1.5rem;
-  }
-
-  .pay-now-btn {
-    font-size: 1.1rem;
-    padding: 12px;
-  }
-}
-
+/* Cart Item */
 .cart-item {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  position: relative;
+  padding: 15px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-.cart-details {
-  width: 60%;
-  padding-left: 20px;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cart-checkbox {
+  margin-right: 15px;
+  transform: scale(1.2);
 }
 
 .cart-3d-model {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
+  transition: transform 0.3s ease;
 }
 
-.remove-btn {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 5px;
+.cart-3d-model:hover {
+  transform: scale(1.1);
 }
 
-.remove-btn:hover {
-  background-color: darkred;
+.cart-details {
+  flex-grow: 1;
+  padding-left: 20px;
+}
+
+.cart-details h3 {
+  font-size: 1.4rem;
+  color: #34495e;
+  margin: 0 0 5px;
+}
+
+.cart-description {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  margin: 0 0 10px;
+}
+
+.cart-price {
+  font-size: 1rem;
+  color: #16a085;
+  font-weight: 500;
+}
+
+.cart-total {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  font-weight: 600;
 }
 
 .quantity-selector {
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin: 10px 0;
 }
 
 .quantity-selector button {
-  background: #007bff;
+  background: #3498db;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 6px 12px;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.quantity-selector button:hover {
+  background: #2980b9;
 }
 
 .quantity-selector span {
-  margin: 0 10px;
-  font-size: 18px;
+  margin: 0 15px;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.remove-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.remove-btn:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+}
+
+/* Payment Summary */
+.payment-summary {
+  width: 30%;
+  max-width: 350px;
+  padding: 25px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 100px; /* Offset from fixed header */
+  height: fit-content;
+}
+
+.payment-summary h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.total-price {
+  font-size: 1.8rem;
+  color: #34495e;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.total-price strong {
+  color: #16a085;
+}
+
+.pay-now-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.2rem;
+  background: linear-gradient(90deg, #3498db, #2980b9);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pay-now-btn:hover {
+  background: linear-gradient(90deg, #2980b9, #1f6391);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.pay-now-btn:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Footer Styles */
+footer {
+  height: 100px;
+  background: linear-gradient(135deg, #fef9e7, #f5e9d4); /* Matching gradient */
+  width: 100vw; /* Full width */
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #636e72;
+  flex-shrink: 0; /* Prevent shrinking */
+  box-sizing: border-box;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .cart-container {
+    flex-direction: column;
+    padding: 15px;
+    margin-top: 80px; /* Offset for header */
+    margin-bottom: 100px; /* Offset for footer */
+    max-height: calc(100vh - 180px); /* Maintain scrollable height */
+  }
+
+  .cart-items {
+    width: 100%;
+    padding-right: 0;
+  }
+
+  .payment-summary {
+    width: 100%;
+    margin-top: 20px;
+    position: static;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-3d-model {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+
+  .cart-details {
+    padding-left: 0;
+    width: 100%;
+  }
 }

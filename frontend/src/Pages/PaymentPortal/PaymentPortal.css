@@ -1,192 +1,217 @@
-/* Ensure the body and html take up full height and allow scrolling */
+/* Ensure the body and html allow scrolling and center the content */
 html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-y: auto; /* Allow scrolling if needed */
-  }
-  
-  /* Use flexbox to center the payment container */
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f4f4f4; /* Optional background color */
-  }
-  
-  /* Payment container */
-  .payment-container {
-    width: 350px;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
-    max-height: 90vh; /* Allow the container to take up maximum 90% of the screen height */
-    overflow-y: auto; /* Allow scrolling inside the container */
-  }
-  
-  /* Title and description */
-  .payment-container h2 {
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .payment-container p {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  /* Form styling */
-  .payment-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  /* Label and input fields */
-  .payment-container label {
-    text-align: left;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .payment-container input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  /* Buttons */
-  .payment-container button {
-    margin-top: 15px;
-    padding: 12px;
-    font-size: 16px;
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .payment-container button:hover {
-    background: #218838;
-  }
-  
-  .payment-container button:last-child {
-    background: #dc3545;
-  }
-  
-  .payment-container button:last-child:hover {
-    background: #c82333;
-  }
-/* Overlay for the modal */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  /* Modal content */
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    max-width: 400px;
-    width: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Modal button */
-  .modal-content button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  .modal-content button:hover {
-    background-color: #0056b3;
-  }
-    /* Error message styling */
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  font-family: 'Poppins', 'Arial', sans-serif; /* Modern, attractive font */
+  background: linear-gradient(135deg, #e0eafc, #cfdef3); /* Subtle gradient background */
+}
+
+/* Center the payment container */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Payment container styling */
+.payment-container {
+  width: 420px; /* Slightly wider for a premium feel */
+  padding: 30px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Deeper shadow for a floating effect */
+  border-radius: 16px; /* Softer, modern corners */
+  text-align: center;
+  max-height: 90vh;
+  overflow-y: auto;
+  margin: 20px 0;
+  position: relative;
+  overflow: hidden; /* For gradient border effect */
+}
+
+/* Gradient border effect */
+.payment-container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #6b48ff, #00ddeb); /* Vibrant gradient */
+  z-index: -1;
+  border-radius: 16px;
+  filter: blur(5px);
+}
+
+/* Header styling */
+.payment-container h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50; /* Darker, richer color */
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.payment-container p {
+  font-size: 18px;
+  color: #7f8c8d; /* Softer gray for contrast */
+  margin-bottom: 25px;
+  font-weight: 500;
+}
+
+/* Form styling */
+.payment-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px; /* More breathing room */
+}
+
+/* Labels */
+.payment-container label {
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: #34495e; /* Richer blue-gray */
+  margin-bottom: 6.Concurrent Modificationpx;
+  transition: color 0.3s ease;
+}
+
+/* Input fields */
+.payment-container input {
+  padding: 12px 15px;
+  border: 2px solid #dfe6e9; /* Thicker, softer border */
+  border-radius: 8px;
+  font-size: 16px;
+  color: #2d3436;
+  background: #f9fbfd; /* Light, clean background */
+  transition: all 0.3s ease;
+}
+
+.payment-container input:focus {
+  border-color: #6b48ff; /* Vibrant purple focus */
+  box-shadow: 0 0 8px rgba(107, 72, 255, 0.3); /* Glow effect */
+  outline: none;
+}
+
+/* Buttons */
+.payment-container button[type="submit"] {
+  margin-top: 25px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(90deg, #6b48ff, #00ddeb); /* Eye-catching gradient */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.payment-container button[type="submit"]:hover {
+  transform: translateY(-2px); /* Subtle lift effect */
+  box-shadow: 0 5px 15px rgba(107, 72, 255, 0.4); /* Glow shadow */
+}
+
+.payment-container button[type="submit"]:disabled {
+  background: #b2bec3; /* Muted gray for disabled state */
+  transform: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Cancel button */
+.payment-container button:last-child {
+  margin-top: 15px;
+  background: transparent;
+  color: #6b48ff; /* Matching purple */
+  border: 2px solid #6b48ff;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.payment-container button:last-child:hover {
+  background: #6b48ff;
+  color: white;
+  box-shadow: 0 5px 15px rgba(107, 72, 255, 0.3);
+}
+
+/* Error message */
 .error-message {
-    color: red;
-    font-size: 12px; /* Decrease font size */
-    margin-top: 5px;
-    margin-bottom: 10px;
-  }
-  
-  /* You can also add other styles for the form inputs and buttons */
-  .payment-container {
-    padding: 20px;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-  
-  h2 {
-    text-align: center;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  label {
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-  
-  input {
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  button {
-    padding: 10px;
-    background-color: #4caf50;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:disabled {
-    background-color: #ccc;
-  }
-  
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    text-align: center;
-  }
+  color: #e74c3c; /* Vibrant red for errors */
+  font-size: 13px;
+  margin-top: 5px;
+  text-align: left;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease; /* Subtle fade-in */
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Darker overlay for contrast */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content */
+.modal-content {
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: slideUp 0.4s ease; /* Smooth entrance */
+}
+
+.modal-content h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #27ae60; /* Bright green for success */
+  margin-bottom: 15px;
+}
+
+.modal-content p {
+  font-size: 16px;
+  color: #636e72;
+  margin-bottom: 25px;
+}
+
+.modal-content button {
+  background: linear-gradient(90deg, #27ae60, #2ecc71); /* Green gradient */
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.modal-content button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

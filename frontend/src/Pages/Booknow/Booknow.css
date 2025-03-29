@@ -16,8 +16,7 @@ body {
 
 /* Form container */
 .booknow-container {
-  background-color: #ffcc80;
-  width: 90%;
+  background: rgba(255, 255, 255, 0.15);  width: 90%;
   max-width: 700px;
   padding: 25px;
   border-radius: 15px;
@@ -55,7 +54,7 @@ form {
 label {
   font-weight: bold;
   text-align: left;
-  color: #5d4037;
+  color: #030303;
 }
 
 /* Input fields and select dropdown */

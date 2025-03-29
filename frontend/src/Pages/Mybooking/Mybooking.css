@@ -1,9 +1,9 @@
 /* General Container Styles */
 .mybooking-container {
-  width: 90%;
+  width: 100%;
   margin: 20px auto;
   padding: 20px;
-  background-color: #ebe8e4; /* Warm pastel background */
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 12px;
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
   position: relative;
@@ -42,7 +42,7 @@ h2 {
   border-collapse: collapse;
   margin-top: 20px;
   table-layout: auto;
-  background-color: #fff8e1; /* Light pastel */
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -66,11 +66,11 @@ h2 {
 
 /* Alternating Row Colors */
 .mybooking-table tbody tr:nth-child(even) {
-  background-color: #ffe0b2;
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .mybooking-table tbody tr:hover {
-  background-color: #ffd180;
+  background-color: #ecbb8d;
   cursor: pointer;
 }
 
@@ -100,8 +100,30 @@ select:focus {
   outline: none;
 }
 
+/* Ensure Buttons are Side by Side */
+.button-group {
+  display: flex;
+  flex-direction: row; /* Align buttons horizontally */
+  justify-content: center; /* Center align */
+  align-items: center;
+  gap: 10px; /* Space between buttons */
+  width: 100%;
+  white-space: nowrap; /* Prevents wrapping */
+}
+
+/* Ensure Buttons are Inline */
+.button-group button {
+  display: inline-flex;
+  padding: 8px 12px;
+  font-size: 14px;
+  white-space: nowrap; /* Prevents wrapping */
+}
+
 /* Button Styling */
 button {
+  display: inline-flex; /* Ensures buttons align inline */
+  align-items: center;
+  justify-content: center;
   padding: 10px 15px;
   margin: 5px;
   border: none;
@@ -110,20 +132,18 @@ button {
   font-size: 15px;
   font-weight: bold;
   transition: 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: 'Poppins', sans-serif;
 }
 
-/* Save & Cancel Buttons */
-button:nth-child(1) {
-  background-color: #3086e2;
-  color: white;
+/* Edit Button */
+.edit-btn {
+  background-color: #e9d6b3;
+  color: rgb(75, 72, 72);
 }
 
-button:nth-child(2) {
-  background-color: #f44336;
+/* Delete Button */
+.delete-btn {
+  background-color: #f26464;
   color: white;
 }
 
@@ -139,34 +159,41 @@ button:hover {
   transform: scale(1.05);
 }
 
+/* Ensure Table Cell is Properly Aligned */
+td {
+  text-align: center;
+  vertical-align: middle; /* Ensure vertical centering */
+  white-space: nowrap; /* Prevents wrapping inside the cell */
+}
+
 /* Responsiveness */
 @media (max-width: 768px) {
   .mybooking-table th, .mybooking-table td {
-      padding: 10px;
-      font-size: 14px;
+    padding: 10px;
+    font-size: 14px;
   }
 
   .mybooking-container {
-      padding: 15px;
+    padding: 15px;
   }
 }
 
 @media (max-width: 480px) {
   .mybooking-container {
-      width: 100%;
-      padding: 15px;
+    width: 100%;
+    padding: 15px;
   }
 
   h2 {
-      font-size: 1.5rem;
+    font-size: 1.5rem;
   }
 
   .mybooking-table th, .mybooking-table td {
-      font-size: 12px;
+    font-size: 12px;
   }
 
   button {
-      padding: 8px 12px;
-      font-size: 13px;
+    padding: 8px 12px;
+    font-size: 13px;
   }
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { jsPDF } from "jspdf";
 import "./Mybooking.css";
 
 const Mybooking = () => {
@@ -55,6 +56,20 @@ const Mybooking = () => {
     }
   };
 
+  // Generate PDF for the appointment
+  const generatePDF = (appointment) => {
+    const doc = new jsPDF();
+    doc.text(`Appointment Details`, 20, 10);
+    doc.text(`Name: ${appointment.name}`, 20, 20);
+    doc.text(`Email: ${appointment.email}`, 20, 30);
+    doc.text(`Service: ${appointment.service}`, 20, 40);
+    doc.text(`Date: ${appointment.date}`, 20, 50);
+    doc.text(`Time: ${appointment.time}`, 20, 60);
+    
+    // Save the PDF file with the appointment name as the filename
+    doc.save(`${appointment.name}_appointment.pdf`);
+  };
+
   return (
     <div className="mybooking-container">
       <h2>My Appointments</h2>
@@ -105,8 +120,11 @@ const Mybooking = () => {
                     <td>{appointment.date}</td>
                     <td>{appointment.time}</td>
                     <td>
-                      <button onClick={() => handleEdit(appointment)}>Edit</button>
-                      <button onClick={() => handleDelete(appointment._id)}>Delete</button>
+                      <div className="button-group">
+                        <button className="edit-btn" onClick={() => handleEdit(appointment)}>Edit</button>
+                        <button className="delete-btn" onClick={() => handleDelete(appointment._id)}>Delete</button>
+                        <button className="download-btn" onClick={() => generatePDF(appointment)}>Download PDF</button>
+                      </div>
                     </td>
                   </>
                 )}

@@ -1,10 +1,10 @@
 /* General Container Styles */
 .vaccination-container {
   width: 90%;
-  max-width: 600px;
+  max-width: 1000px; /* Increased width for more space */
   margin: 20px auto;
   padding: 20px;
-  background-color: #fff3e0; /* Light pastel background */
+  background: rgba(255, 255, 255, 0.15); /* Light pastel background */
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   border: 3px solid #ff9800; /* Soft orange border */
@@ -32,7 +32,7 @@
 /* Title */
 .title {
   font-size: 2rem;
-  color: #5d4037; /* Warm brown */
+  color: #080402; /* Warm brown */
   font-family: 'Poppins', sans-serif;
   margin-bottom: 15px;
 }
@@ -46,7 +46,7 @@
 .input-group label {
   font-size: 16px;
   font-weight: bold;
-  color: #6d4c41; /* Deep brown */
+  color: #070707; /* Deep brown */
   display: block;
   margin-bottom: 5px;
   font-family: 'Poppins', sans-serif;
@@ -84,28 +84,30 @@ input, select {
 }
 
 /* Vaccination Schedule */
-.schedule {
-  margin-top: 20px;
+.schedule-container {
+  margin-top: 40px; /* Increased margin to separate it from the form */
   padding: 15px;
-  background-color: #ffebcc;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 10px;
   border: 2px solid #ff9800;
+  max-height: 400px; /* Set a max height for scrolling */
+  overflow-y: auto; /* Enable scrolling if content overflows */
 }
 
 /* Schedule Title */
-.schedule h3 {
+.schedule-container h3 {
   font-size: 1.5rem;
-  color: #5d4037;
+  color: #110805;
   font-family: 'Poppins', sans-serif;
 }
 
 /* List Items */
-.schedule ul {
+.schedule-container ul {
   list-style: none;
   padding: 0;
 }
 
-.schedule li {
+.schedule-container li {
   font-size: 16px;
   padding: 10px;
   margin: 5px 0;
@@ -154,11 +156,11 @@ input, select {
       font-size: 15px;
   }
 
-  .schedule h3 {
+  .schedule-container h3 {
       font-size: 1.4rem;
   }
 
-  .schedule li {
+  .schedule-container li {
       font-size: 14px;
   }
 }
@@ -181,11 +183,11 @@ input, select {
       font-size: 14px;
   }
 
-  .schedule h3 {
+  .schedule-container h3 {
       font-size: 1.3rem;
   }
 
-  .schedule li {
+  .schedule-container li {
       font-size: 13px;
   }
 }

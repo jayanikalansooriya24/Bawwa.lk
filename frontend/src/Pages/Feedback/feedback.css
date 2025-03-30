@@ -6,7 +6,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-image: url('../../assets/1.png');
+  background-image: url('../../assets/4.jpg'); /* Use the uploaded image */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -22,8 +22,9 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
+  width: 1000px;
 }
+
 
 h2 {
   text-align: center;
@@ -37,6 +38,7 @@ input, select, textarea {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+  
 }
 
 button {

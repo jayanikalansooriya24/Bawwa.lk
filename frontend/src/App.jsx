@@ -12,6 +12,7 @@ import DebugLogger from "./components/DebugLogger";
 import UserAdmin from "./Pages/UserAdmin/useradmin";
 import Login from "./Pages/Login/login";
 
+
 function App() {
   return (
     <StoreProvider>
@@ -27,6 +28,7 @@ function App() {
             <Route path="/lostpet" element={<LostPet />} />
             <Route path="/admin" element={<UserAdmin />} />
             <Route path="/login" element={<Login />} />
+            
           </Routes>
         </main>
         <Footer />

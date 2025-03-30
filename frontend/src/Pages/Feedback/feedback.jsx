@@ -88,6 +88,7 @@ const Feedback = () => {
 
   return (
     <div>
+      <div className="container">
       <h2>Share Your Feedback</h2>
       <form onSubmit={handleSubmit}>
         {/* Name */}
@@ -177,6 +178,7 @@ const Feedback = () => {
         {/* Submit Button */}
         <button type="submit">Submit Feedback</button>
       </form>
+    </div>
     </div>
   );
 };

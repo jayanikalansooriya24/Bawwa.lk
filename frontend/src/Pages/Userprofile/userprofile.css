@@ -25,7 +25,7 @@
   padding: 30px;
   max-width: 1000px;
 
-  background: rgba(255, 255, 255, 0.15); /* More transparent */
+  background:#ffffff; /* More transparent */
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   text-align: center;

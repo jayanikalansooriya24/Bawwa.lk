@@ -4,29 +4,34 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 30px;
-  color: #333;
+  background:#ffffff;
 }
 
 .admin-table {
   width: 100%;
   border-collapse: collapse;
+  background:#ffffff;
 }
+
 
 .admin-table th,
 .admin-table td {
+  background:#ffffff;
   padding: 14px 16px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  
 }
 
 .admin-table th {
   background-color: #f5f5f5;
   font-weight: 600;
-  color: #444;
+  background:#ffffff;
 }
 
 .admin-table tbody tr:hover {
   background-color: #f9f9f9;
+  
 }
 
 .update-btn,
@@ -36,7 +41,7 @@
   border-radius: 6px;
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  background:#ffffff;
 }
 
 .update-btn {
@@ -65,6 +70,7 @@
   .admin-table td {
     font-size: 12px;
     padding: 10px;
+    
   }
 
   .update-btn,
@@ -83,6 +89,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
 .modal-content {

@@ -1,58 +1,107 @@
 .accessory-container {
-  text-align: center;
+  max-width: 1200px;
+  margin: 20px auto;
   padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.accessory-container h2 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .accessory-list {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  flex-wrap: wrap;
 }
 
 .accessory-item {
-  border: 1px solid #ddd;
+  background: rgb(245, 197, 157);
+  border-radius: 10px;
   padding: 15px;
-  border-radius: 8px;
-  text-align: center;
-  background: #fff;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.accessory-item:hover {
+  transform: translateY(-5px);
+}
+
+.accessory-item.selected {
+  border: 2px solid #3498db;
+}
+
+.accessory-item h3 {
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+}
+
+.accessory-item p {
+  color: #283536;
+  margin: 0 0 10px 0;
+}
+
+.accessory-price {
+  color: #27ae60;
+  font-weight: bold;
 }
 
 .accessory-display {
-  width: 200px;
   height: 200px;
+  margin: 10px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #c8c9cd;
+}
+
+.accessory-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.select-button, .cart-button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
 .select-button {
-  background: #049c15;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
+  background: #ecf0f1;
+  color: #2c3e50;
 }
 
 .select-button.active {
-  background: #28a745;
-}
-
-.select-button:hover {
-  background: #039a1c;
+  background: #3498db;
+  color: white;
 }
 
 .cart-button {
-  background: #ff9800;
+  background: #2ecc71;
   color: white;
-  padding: 10px 15px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-left: 10px;
+}
+
+.select-button:hover {
+  background: #bdc3c7;
 }
 
 .cart-button:hover {
-  background: #e68900;
+  background: #27ae60;
+}
+
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
 .dialog-box {
@@ -63,211 +112,170 @@
   background: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  width: 90%;
+  max-width: 500px;
+  animation: slideIn 0.3s ease-out;
 }
 
-.dialog-box input {
-  width: 50px;
-  padding: 5px;
-  margin: 10px 0;
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }
 
-.add-cart-btn {
-  background: #28a745;
-  color: white;
-  padding: 10px;
-  margin-right: 10px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
+.dialog-box.success {
+  background: #e6ffe6;
 }
 
-.cancel-btn {
-  background: #dc3545;
-  color: white;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
-/* Overlay for dialog */
-.dialog-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-}
-
-/* Dialog Box */
-.dialog-box {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  width: 350px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  z-index: 1000;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Close Button */
 .close-btn {
   position: absolute;
   top: 10px;
-  right: 15px;
-  background: none;
+  right: 10px;
   border: none;
-  font-size: 18px;
+  background: none;
+  font-size: 20px;
   cursor: pointer;
-  color: #666;
+  color: #7f8c8d;
 }
 
-.close-btn:hover {
-  color: black;
+.dialog-box h3 {
+  color: #2c3e50;
+  margin: 0 0 10px 0;
 }
 
-/* Quantity Selector */
+.dialog-box p {
+  color: #7f8c8d;
+  margin: 0 0 15px 0;
+}
+
+.accessory-preview {
+  height: 250px;
+  margin: 15px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f5f6fa;
+}
+
 .quantity-selector {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 15px;
+  gap: 10px;
+  margin: 15px 0;
 }
 
 .quantity-selector button {
-  background: #f57c00;
+  background: #3498db;
   color: white;
   border: none;
-  padding: 8px 12px;
-  font-size: 16px;
-  border-radius: 6px;
+  padding: 5px 15px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: 0.2s ease-in-out;
+  transition: background 0.3s;
 }
 
 .quantity-selector button:hover {
-  background: #e65100;
+  background: #2980b9;
 }
 
 .quantity-selector span {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  padding: 0 10px;
+  font-size: 1.2em;
+  color: #2c3e50;
 }
 
-/* Buttons */
 .add-cart-btn, .cancel-btn {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 6px;
+  width: 48%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: 0.2s ease-in-out;
-  margin-top: 10px;
+  transition: background 0.3s;
 }
 
 .add-cart-btn {
-  background: #28a745;
+  background: #2ecc71;
   color: white;
-  border: none;
-}
-
-.add-cart-btn:hover {
-  background: #218838;
+  margin-right: 4%;
 }
 
 .cancel-btn {
-  background: #dc3545;
-  color: white;
-  border: none;
+  background: #ecf0f1;
+  color: #2c3e50;
+}
+
+.add-cart-btn:hover {
+  background: #27ae60;
 }
 
 .cancel-btn:hover {
-  background: #c82333;
+  background: #bdc3c7;
 }
 
-/* Popup container (overlay) */
-.popup-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.success-animation {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  animation: fadeIn 0.5s ease-out;
+  justify-content: center;
+  height: 100%;
+  padding: 40px;
 }
 
-/* Popup message box */
-.popup-message {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
+.checkmark {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.checkmark-circle {
+  stroke: #27ae60;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+}
+
+.checkmark-check {
+  stroke: #27ae60;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #27ae60;
+  }
+}
+
+.success-animation p {
+  color: #27ae60;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.error {
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  position: relative;
-  max-width: 300px;
-  width: 80%;
-  opacity: 0;
-  transform: scale(0.9);
-  animation: scaleUp 0.4s ease-out forwards; /* Scale-up animation */
-}
-
-/* Icon inside the popup */
-.popup-icon {
-  font-size: 30px;
-  color: #28a745; /* Green color for success */
-  margin-bottom: 10px;
-}
-
-/* Close button */
-.close-popup {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.close-popup:hover {
-  transform: scale(1.2);  /* Scale-up effect when hovered */
-  color: #ff6347;  /* Change color on hover */
-}
-
-/* Fade-in animation for the overlay */
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-/* Scale-up animation for the popup message */
-@keyframes scaleUp {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+  color: #e74c3c;
+  padding: 20px;
 }

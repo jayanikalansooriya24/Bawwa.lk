@@ -2,17 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import { Canvas, extend, useFrame } from "@react-three/fiber";
 import { TextureLoader, SphereGeometry } from "three";
 import { OrbitControls, Stars } from "@react-three/drei";
+import "./PetImageTo3D.css";
 
 extend({ SphereGeometry });
 
-// Separate component for the animated sphere
-const AnimatedSphere = ({ texture, normalMap }) => {
+const AnimatedSphere = ({ texture, normalMap, displacementMap }) => {
   const meshRef = useRef();
 
-  // Animation for subtle rotation
   useFrame(() => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += 0.005; // Slow rotation for realism
+      meshRef.current.rotation.y += 0.005;
     }
   });
 
@@ -22,6 +21,8 @@ const AnimatedSphere = ({ texture, normalMap }) => {
       <meshStandardMaterial
         map={texture}
         normalMap={normalMap}
+        displacementMap={displacementMap} // Add displacement for geometry variation
+        displacementScale={0.1} // Adjust this value for more/less protrusion
         roughness={0.4}
         metalness={0.1}
         bumpMap={texture}
@@ -36,8 +37,8 @@ const PetImageTo3D = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [texture, setTexture] = useState(null);
   const [normalMap, setNormalMap] = useState(null);
+  const [displacementMap, setDisplacementMap] = useState(null);
 
-  // Handle image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
@@ -48,7 +49,6 @@ const PetImageTo3D = () => {
     }
   };
 
-  // Load texture and generate a simple normal map
   useEffect(() => {
     if (imageUrl) {
       const loader = new TextureLoader();
@@ -56,7 +56,8 @@ const PetImageTo3D = () => {
         imageUrl,
         (loadedTexture) => {
           setTexture(loadedTexture);
-          // Simulate a normal map (placeholder)
+          // Use the image itself as a simple displacement map (grayscale effect)
+          setDisplacementMap(loadedTexture);
           loader.load(
             "https://threejs.org/examples/textures/normalmap.jpg",
             (normalTexture) => {
@@ -71,65 +72,59 @@ const PetImageTo3D = () => {
         (error) => console.error("Error loading texture:", error)
       );
 
-      return () => URL.revokeObjectURL(imageUrl); // Cleanup
+      return () => URL.revokeObjectURL(imageUrl);
     }
   }, [imageUrl]);
 
   return (
-    <div style={{ textAlign: "center", height: "100vh", background: "#1a1a1a" }}>
-      <h2 style={{ color: "#fff" }}>Upload Your Pet Image for a 3D-Like Preview</h2>
+    <div className="pet-container">
+      <h2 className="pet-heading">Upload Your Pet Image for a 3D-Like Preview</h2>
       <input
         type="file"
         accept="image/jpeg, image/png"
         onChange={handleImageUpload}
-        style={{ margin: "20px" }}
+        className="pet-upload"
       />
-      <div style={{ width: "100%", height: "80%" }}>
+      <div className="canvas-wrapper">
         <Canvas shadows camera={{ position: [0, 1, 5], fov: 60 }}>
-          {/* Enhanced Lighting */}
-          <ambientLight intensity={0.4} />
+          <ambientLight intensity={0.5} />
           <directionalLight
             position={[5, 5, 5]}
-            intensity={1.5}
+            intensity={1.8}
             castShadow
             shadow-mapSize-width={2048}
             shadow-mapSize-height={2048}
             shadow-bias={-0.0001}
           />
-          <pointLight position={[-5, 3, -5]} intensity={0.8} color="#ffddaa" />
+          <pointLight position={[-5, 3, -5]} intensity={1} color="#ffddaa" />
           <spotLight
             position={[0, 10, 0]}
             angle={0.3}
             penumbra={1}
-            intensity={1}
+            intensity={1.2}
             castShadow
             shadow-mapSize-width={1024}
             shadow-mapSize-height={1024}
           />
 
-          {/* Render the animated sphere only when texture is loaded */}
-          {texture && <AnimatedSphere texture={texture} normalMap={normalMap} />}
+          {texture && (
+            <AnimatedSphere
+              texture={texture}
+              normalMap={normalMap}
+              displacementMap={displacementMap}
+            />
+          )}
 
-          {/* Floor for shadow realism */}
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2.1, 0]} receiveShadow>
             <planeGeometry args={[20, 20]} />
-            <shadowMaterial opacity={0.2} />
+            <shadowMaterial opacity={0.3} />
           </mesh>
 
-          {/* Controls and Background */}
-          <OrbitControls
-            enablePan={true}
-            enableZoom={true}
-            enableRotate={true}
-            minDistance={3}
-            maxDistance={10}
-          />
+          <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} minDistance={3} maxDistance={10} />
           <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
         </Canvas>
       </div>
-      <p style={{ color: "#fff" }}>
-        Note: This enhances the sphere to look more 3D-like with lighting and effects.
-      </p>
+      <p className="pet-note">Note: This enhances the sphere with displacement and lighting effects.</p>
     </div>
   );
 };

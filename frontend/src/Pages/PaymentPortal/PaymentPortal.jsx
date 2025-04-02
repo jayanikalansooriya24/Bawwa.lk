@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useCart } from "../CartPage/CartContext"; // Import cart context
 import "./PaymentPortal.css";
 
 const PaymentPortal = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { cart, setCart } = useCart(); // Get cart and setter
   const total = location.state?.total || 0;
 
   const [cardDetails, setCardDetails] = useState({
@@ -13,7 +15,6 @@ const PaymentPortal = () => {
     expirationDate: "",
     cvv: "",
   });
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -39,13 +40,11 @@ const PaymentPortal = () => {
       cvv: "",
     };
 
-    // Validate card number (16 digits)
     if (!/^\d{16}$/.test(cardDetails.cardNumber)) {
       errors.cardNumber = "Card number must be 16 digits.";
       isValid = false;
     }
 
-    // Validate expiration date (MM/YY format and not in the past)
     const expirationParts = cardDetails.expirationDate.split("/");
     if (expirationParts.length === 2) {
       const month = parseInt(expirationParts[0], 10);
@@ -62,7 +61,6 @@ const PaymentPortal = () => {
       isValid = false;
     }
 
-    // Validate CVV (3 digits)
     if (!/^\d{3}$/.test(cardDetails.cvv)) {
       errors.cvv = "CVV must be 3 digits.";
       isValid = false;
@@ -75,33 +73,35 @@ const PaymentPortal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError(""); // Reset error message before submitting
+    setError("");
 
-    // Perform form validation
     if (!validateForm()) {
       setIsLoading(false);
-      return; // Stop if validation fails
+      return;
     }
 
     try {
       const response = await axios.post("http://localhost:5000/api/process-payment", {
         ...cardDetails,
         totalAmount: total,
+        items: cart, // Send cart items to backend
       });
 
       if (response.status === 201) {
-        setIsModalOpen(true); // Open modal on successful payment
+        setCart([]); // Clear cart on success
+        setIsModalOpen(true);
       }
     } catch (err) {
       setError("Payment processing failed. Please try again.");
+      console.error('Payment error:', err.response?.data || err.message);
     } finally {
-      setIsLoading(false); // Stop loading
+      setIsLoading(false);
     }
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    navigate("/PetModel"); // Optionally redirect to a "Thank You" page
+    navigate("/PetModel");
   };
 
   return (
@@ -146,11 +146,9 @@ const PaymentPortal = () => {
           {isLoading ? "Processing..." : "Complete Payment"}
         </button>
       </form>
-      {error && <p className="error-message">{error}</p>} {/* Display error message */}
-
+      {error && <p className="error-message">{error}</p>}
       <button onClick={() => navigate("/PetModel")}>Cancel</button>
 
-      {/* Modal dialog */}
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">

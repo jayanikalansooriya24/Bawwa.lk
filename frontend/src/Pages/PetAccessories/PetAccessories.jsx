@@ -33,9 +33,17 @@ const PetAccessories = ({ selectedPet }) => {
     }
   }, [selectedPet]);
 
-  if (!selectedPet) {
-    return <div className="error">No pet selected. Please choose a pet.</div>;
-  }
+  const handleDragStart = (e, accessory) => {
+    e.dataTransfer.setData(
+      'application/json',
+      JSON.stringify({
+        _id: accessory._id,
+        name: accessory.name,
+        price: accessory.price,
+        filePath: accessory.filePath,
+      })
+    );
+  };
 
   const handleAddToCart = () => {
     if (selectedAccessory) {
@@ -54,7 +62,7 @@ const PetAccessories = ({ selectedPet }) => {
         setDialogOpen(false);
         setQuantity(1);
         navigate('/cart');
-      }, 2000); // Show success animation for 2 seconds
+      }, 2000);
     }
   };
 
@@ -73,6 +81,7 @@ const PetAccessories = ({ selectedPet }) => {
                 setSelectedAccessory(accessory);
                 setDialogOpen(true);
               }}
+              onDragStart={(e) => handleDragStart(e, accessory)}
             />
           ))
         ) : (
@@ -100,7 +109,7 @@ const PetAccessories = ({ selectedPet }) => {
                     <ambientLight intensity={0.5} />
                     <directionalLight position={[10, 10, 5]} intensity={1} />
                     <OrbitControls />
-                    <AccessoryModel file={selectedAccessory.filePath} />
+                    <AccessoryModel file={selectedAccessory.filePath} position={[0, 0, 0]} />
                   </Canvas>
                 </div>
                 <div className="quantity-selector">
@@ -131,9 +140,13 @@ const PetAccessories = ({ selectedPet }) => {
   );
 };
 
-const AccessoryItem = ({ accessory, isSelected, onSelect, onAddToCart }) => {
+const AccessoryItem = ({ accessory, isSelected, onSelect, onAddToCart, onDragStart }) => {
   return (
-    <div className={`accessory-item ${isSelected ? 'selected' : ''}`}>
+    <div
+      className={`accessory-item ${isSelected ? 'selected' : ''}`}
+      draggable
+      onDragStart={onDragStart}
+    >
       <h3>{accessory.name}</h3>
       <p>{accessory.description}</p>
       <p className="accessory-price">LKR {accessory.price.toFixed(2)}</p>
@@ -142,7 +155,7 @@ const AccessoryItem = ({ accessory, isSelected, onSelect, onAddToCart }) => {
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
           <OrbitControls />
-          <AccessoryModel file={accessory.filePath} />
+          <AccessoryModel file={accessory.filePath} position={[0, 0, 0]} />
         </Canvas>
       </div>
       <div className="accessory-buttons">
@@ -160,9 +173,9 @@ const AccessoryItem = ({ accessory, isSelected, onSelect, onAddToCart }) => {
   );
 };
 
-const AccessoryModel = ({ file }) => {
+const AccessoryModel = ({ file, position }) => {
   const { scene } = useGLTF(`http://localhost:5000${file}`);
-  return <primitive object={scene} scale={3} position={[0, -1, 0]} />;
+  return <primitive object={scene} scale={1} position={position} />;
 };
 
 export default PetAccessories;

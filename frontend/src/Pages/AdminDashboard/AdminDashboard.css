@@ -233,3 +233,20 @@
     padding: 10px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
   }
+  .accessory-table th,
+.accessory-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+/* Add width adjustments if needed */
+.accessory-table th:nth-child(6), /* Qty Sold */
+.accessory-table td:nth-child(6) {
+  width: 80px;
+}
+
+.accessory-table th:nth-child(7), /* Revenue */
+.accessory-table td:nth-child(7) {
+  width: 120px;
+}

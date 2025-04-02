@@ -27,21 +27,36 @@ const AdminDashboard = () => {
   const [message, setMessage] = useState('');
   const [accessories, setAccessories] = useState([]);
   const [filteredAccessories, setFilteredAccessories] = useState([]);
+  const [salesData, setSalesData] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [filter, setFilter] = useState({ petType: '', search: '' });
 
   useEffect(() => {
     fetchAccessories();
+    fetchSalesData();
   }, []);
 
   const fetchAccessories = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/accessories');
+      console.log('Fetched accessories:', response.data);
       setAccessories(response.data);
       applyFilter(response.data, filter);
     } catch (error) {
       console.error('Error fetching accessories:', error);
+      setMessage('Failed to load accessories.');
+    }
+  };
+
+  const fetchSalesData = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/order');
+      console.log('Fetched sales data:', response.data);
+      setSalesData(response.data);
+    } catch (error) {
+      console.error('Error fetching sales data:', error);
+      setMessage('Failed to load sales data.');
     }
   };
 
@@ -101,6 +116,7 @@ const AdminDashboard = () => {
       setFile(null);
       setShowForm(false);
       fetchAccessories();
+      fetchSalesData();
     } catch (error) {
       setMessage('Error: ' + (error.response?.data?.message || error.message));
     }
@@ -124,11 +140,26 @@ const AdminDashboard = () => {
         await axios.delete(`http://localhost:5000/api/accessories/${id}`);
         setMessage('Accessory deleted successfully!');
         fetchAccessories();
+        fetchSalesData();
       } catch (error) {
         setMessage('Error deleting accessory: ' + (error.response?.data?.message || error.message));
       }
     }
   };
+
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('en-LK', { style: 'currency', currency: 'LKR' }).format(price);
+  };
+
+  // Single definition of enrichedAccessories
+  const enrichedAccessories = filteredAccessories.map(acc => {
+    const sales = salesData.find(sale => sale.accessoryId === acc._id.toString()) || {
+      totalQuantity: 0,
+      totalRevenue: 0,
+    };
+    console.log(`Merging accessory ${acc._id} with sales:`, sales);
+    return { ...acc, totalQuantity: sales.totalQuantity, totalRevenue: sales.totalRevenue };
+  });
 
   return (
     <div className="admin-dashboard">
@@ -137,6 +168,9 @@ const AdminDashboard = () => {
         <div className="header-controls">
           <button className="add-btn" onClick={() => setShowForm(true)}>
             Add New Accessory
+          </button>
+          <button className="refresh-btn" onClick={fetchSalesData}>
+            Refresh Sales
           </button>
           <div className="filter-section">
             <select
@@ -235,7 +269,7 @@ const AdminDashboard = () => {
         ) : (
           <div className="dashboard-content">
             {message && <p className="message">{message}</p>}
-            {filteredAccessories.length > 0 ? (
+            {enrichedAccessories.length > 0 ? (
               <table className="accessory-table">
                 <thead>
                   <tr>
@@ -244,11 +278,13 @@ const AdminDashboard = () => {
                     <th>Description</th>
                     <th>Price (LKR)</th>
                     <th>3D Model</th>
+                    <th>Qty Sold</th>
+                    <th>Revenue (LKR)</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredAccessories.map((accessory) => (
+                  {enrichedAccessories.map((accessory) => (
                     <tr key={accessory._id}>
                       <td>{accessory.petType}</td>
                       <td>{accessory.name}</td>
@@ -261,6 +297,8 @@ const AdminDashboard = () => {
                           'No model'
                         )}
                       </td>
+                      <td>{accessory.totalQuantity || 0}</td>
+                      <td>{formatPrice(accessory.totalRevenue || 0)}</td>
                       <td>
                         <button className="edit-btn" onClick={() => handleEdit(accessory)}>
                           Edit
@@ -281,7 +319,7 @@ const AdminDashboard = () => {
       </main>
 
       <footer className="dashboard-footer">
-        <p>&copy; 2025 Pet Accessories Admin Dashboard</p>
+        <p>© 2025 Pet Accessories Admin Dashboard</p>
       </footer>
     </div>
   );

@@ -19,16 +19,6 @@ const Navbar = () => {
           onMouseLeave={() => setIsServicesOpen(false)}
         >
           <Link to="/services">SERVICES</Link>
-          {isServicesOpen && (
-            <div className="dropdown-menu">
-              <Link to="/services/grooming">Grooming</Link>
-              <Link to="/services/training">Training</Link>
-              <Link to="/services/boarding">Pet Boarding</Link>
-              <Link to="/services/lostpet">Lost Pet</Link>
-              <Link to="/services/veterinary">Veterinary Care</Link>
-              <Link to="/services/vaccinationcal">Vaccination Calculator</Link>
-            </div>
-          )}
         </div>
 
         <div 
@@ -59,8 +49,8 @@ const Navbar = () => {
           {isBlogOpen && (
             <div className="dropdown-menu">
               <Link to="/blog/pet-care">Pet Care Tips</Link>
-              <Link to="/blog/training">Training Guides</Link>
-              <Link to="/blog/health">Health Advices</Link>
+              <Link to="/nutrientcalculator">Nutrient Calculator</Link>
+              <Link to="/petdietplans">Pet Diet Plans</Link>
             </div>
           )}
         </div>

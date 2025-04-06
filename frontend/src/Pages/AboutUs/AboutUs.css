@@ -1,0 +1,231 @@
+/* Centering the about-container */
+.about-container {
+    padding: 3rem 2rem;
+    max-width: 70rem;
+    margin: 0 auto; /* Centers horizontally */
+    text-align: center;
+    background: linear-gradient(135deg, #e0a33b, #ffefe0);
+    border-radius: 12px;
+    border: 2px solid #000000cd;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    
+    /* Flexbox for centering and content growth */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; /* Consistent spacing between elements */
+    overflow: auto; /* Handle overflow if content exceeds viewport */
+}
+
+/* Title Styling */
+.about-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #1a202c;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.about-title:hover {
+    transform: scale(1.05);
+    color: #4338ca;
+}
+
+/* Paragraph Text */
+.about-text {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    padding: 0 1.5rem;
+    max-width: 800px;
+    position: relative;
+}
+
+.about-text::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    background: #4338ca;
+    transition: width 0.4s ease, left 0.4s ease;
+}
+
+.about-text:hover::after {
+    width: 50%;
+    left: 25%;
+}
+
+/* Highlighted text */
+.highlight {
+    font-weight: 700;
+    color: #4338ca;
+    background: linear-gradient(to right, #4338ca, #6366f1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.highlight:hover {
+    transform: translateY(-2px);
+}
+
+/* Why Choose Us Section */
+.why-choose-us {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #f5a346;
+    border-radius: 12px;
+    border: 2px solid #000000cd;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 650px;
+    transition: transform 0.3s ease;
+}
+
+.why-choose-us:hover {
+    transform: translateY(-5px);
+}
+
+.why-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #1a202c;
+}
+
+/* List Styling */
+.why-list {
+    list-style: none;
+    padding: 0;
+    color: #2d3748;
+    font-size: 1.15rem;
+    font-weight: 500;
+}
+
+.why-list li {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.why-list li:hover {
+    color: #4338ca;
+}
+
+.why-list li::before {
+    content: "✓";
+    color: #4338ca;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s ease;
+}
+
+.why-list li:hover::before {
+    transform: scale(1.2);
+}
+
+/* Button Styling */
+.about-button {
+    display: block; /* Changed to block for better centering */
+    margin: 2rem auto; /* Centered with consistent margin */
+    padding: 0.75rem 2rem; /* Slightly wider padding for better appearance */
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(to right, #4338ca, #6366f1);
+    border: 2px solid #000000cd;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    width: fit-content; /* Ensures button width fits content */
+}
+
+.about-button:hover {
+    background: linear-gradient(to right, #6366f1, #4338ca);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Decorative Divider */
+.about-divider {
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(to right, #e0a33b, #f5a346);
+    margin: 2rem auto;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-container {
+        padding: 2rem 1rem;
+    }
+    
+    .about-title {
+        font-size: 2.25rem;
+    }
+    
+    .about-text {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+    
+    .why-choose-us {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    
+    .why-title {
+        font-size: 1.75rem;
+    }
+    
+    .why-list li {
+        font-size: 1rem;
+    }
+
+    .about-button {
+        padding: 0.65rem 1.5rem; /* Adjusted padding for smaller screens */
+        font-size: 1rem;
+    }
+
+    .about-divider {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-title {
+        font-size: 1.75rem;
+    }
+    
+    .about-text {
+        font-size: 1rem;
+    }
+    
+    .why-choose-us {
+        padding: 1rem;
+    }
+    
+    .why-title {
+        font-size: 1.5rem;
+    }
+
+    .about-button {
+        padding: 0.5rem 1rem; /* Further adjusted for very small screens */
+        font-size: 0.9rem;
+    }
+}

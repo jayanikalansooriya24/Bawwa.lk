@@ -7,6 +7,9 @@ import PetDietPlans from "./Pages/PetDietPlans/PetDietPlans";
 import NutrientCalculator from "./Pages/NutrientCalculator/NutrientCalculator";
 import RecipeSuggestions from "./Pages/RecipeSuggestions/RecipeSuggestions";
 import NutritionManagement from "./Pages/NutritionManagement/NutritionManagement";
+import Services from "./Pages/Services/Services";
+import AboutUs from "./Pages/AboutUs/AboutUs";
+import Team from "./Pages/Team/Team";
 
 
 function App() {
@@ -16,6 +19,9 @@ function App() {
       <div className="content">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/Services" element ={<Services/>} />
+          <Route path="/AboutUs" element={<AboutUs/>} />
+          <Route path="/Team" element={<Team/>} />
           <Route path="/PetDietPlans" element={<PetDietPlans/>} />  
           <Route path="/NutrientCalculator" element={<NutrientCalculator/>} /> 
           <Route path="/RecipeSuggestions" element={<RecipeSuggestions/>} />

@@ -1,5 +1,6 @@
-// src/components/PetDietPlans.js
+// src/components/PetDietPlans.jsx (Updated with Download PDF feature)
 import React, { useState } from 'react';
+import jsPDF from 'jspdf';
 import './PetDietPlans.css';
 
 const PetDietPlans = () => {
@@ -10,30 +11,28 @@ const PetDietPlans = () => {
 
   const handleSpeciesChange = (e) => setSpecies(e.target.value);
   const handleBreedChange = (e) => setBreed(e.target.value);
-  
+
   const handlePetNameChange = (e) => {
     const value = e.target.value;
-    // Only allow A-Z and a-z
     if (/^[A-Za-z]*$/.test(value)) {
       setPetName(value);
     }
   };
 
   const getDietPlan = () => {
-    // Basic diet plan suggestion based on species (this is a simple example)
     if (species.toLowerCase().includes('german shepherd')) {
       return {
         food: 'High-quality dry kibble with meat protein',
         amount: '2-3 cups daily',
         frequency: 'Twice a day',
-        notes: 'Include lean meat supplements and vegetables'
+        notes: 'Include lean meat supplements and vegetables',
       };
     }
     return {
       food: 'General pet food',
       amount: '1-2 cups daily',
       frequency: 'Once or twice a day',
-      notes: 'Consult vet for specific needs'
+      notes: 'Consult vet for specific needs',
     };
   };
 
@@ -42,15 +41,31 @@ const PetDietPlans = () => {
     setShowDietDialog(true);
   };
 
+  const handleDownloadPdf = () => {
+    const doc = new jsPDF();
+    const diet = getDietPlan();
+    doc.setFontSize(16);
+    doc.text(`Diet Plan for ${petName}`, 10, 20);
+    doc.setFontSize(12);
+    doc.text(`Species: ${species}`, 10, 40);
+    doc.text(`Breed: ${breed}`, 10, 50);
+    doc.text('Recommended Diet:', 10, 70);
+    doc.text(`- Food: ${diet.food}`, 10, 80);
+    doc.text(`- Amount: ${diet.amount}`, 10, 90);
+    doc.text(`- Frequency: ${diet.frequency}`, 10, 100);
+    doc.text(`- Notes: ${diet.notes}`, 10, 110);
+    doc.save(`${petName}_DietPlan.pdf`);
+  };
+
   const closeDialog = () => {
     setShowDietDialog(false);
   };
 
   return (
     <div className="pet-diet-plans">
-      <br></br><br></br><br></br><br></br>
+      <br /><br /><br /><br />
       <h2>Pet Diet Plans</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-buttons-wrapper">
         <label>Pet Name:</label>
         <input
           type="text"
@@ -68,7 +83,7 @@ const PetDietPlans = () => {
           onChange={handleSpeciesChange}
           required
         />
-        
+
         <label>Breed:</label>
         <input
           type="text"
@@ -76,13 +91,18 @@ const PetDietPlans = () => {
           onChange={handleBreedChange}
           required
         />
-        
-        <button type="submit">Get Diet Plan</button>
+
+        <div className="button-group">
+          <button type="submit" className="submit-btn">Get Diet Plan</button>
+          <button type="button" className="download-btn" onClick={handleDownloadPdf}>Download Recipe</button>
+        </div>
       </form>
 
       {showDietDialog && (
         <div className="diet-dialog">
-          <div className="diet-dialog-content">
+          <div className="diet-dialog-content animate-in">
+            <div className="pet-decoration dog"></div>
+            <div className="pet-decoration cat"></div>
             <h3>Diet Plan for {petName}</h3>
             <p><strong>Species:</strong> {species}</p>
             <p><strong>Breed:</strong> {breed}</p>
@@ -91,7 +111,7 @@ const PetDietPlans = () => {
             <p><strong>Amount:</strong> {getDietPlan().amount}</p>
             <p><strong>Frequency:</strong> {getDietPlan().frequency}</p>
             <p><strong>Notes:</strong> {getDietPlan().notes}</p>
-            <button onClick={closeDialog}>Close</button>
+            <button onClick={closeDialog} className="close-btn">Close</button>
           </div>
         </div>
       )}

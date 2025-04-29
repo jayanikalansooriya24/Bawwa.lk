@@ -2,21 +2,34 @@
 .services-page {
     padding: 120px 2% 20px;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 4rem auto;
     text-align: center;
+    min-height: calc(100vh - 8rem); /* Ensures minimum height with margins */
 }
 
 .services-title {
     color: #000000;
     font-size: 2.5rem;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     background-color: white;
     padding: 0.5rem 2rem;
     display: inline-block;
     border-radius: 8px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+}
+
+.services-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: #F97316;
 }
 
 .services-container {
@@ -24,7 +37,8 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
     padding: 0 1rem;
-    align-items: stretch; /* Ensures all cards stretch to match tallest in row */
+    align-items: stretch;
+    margin-bottom: 4rem;
 }
 
 .service-card {
@@ -34,7 +48,7 @@
     transition: transform 0.3s ease;
     display: flex;
     flex-direction: column;
-    min-height: 100%; /* Ensures minimum height consistency */
+    min-height: 100%;
 }
 
 .service-card:hover {
@@ -49,10 +63,10 @@
 }
 
 .service-content {
-    padding: 1rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Allows content to expand and push button down */
+    flex-grow: 1;
 }
 
 .service-title {
@@ -64,10 +78,10 @@
 .service-description {
     color: #666;
     font-size: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     line-height: 1.5;
     text-align: center;
-    flex-grow: 1; /* Pushes the button to the bottom */
+    flex-grow: 1;
 }
 
 .service-link {
@@ -75,30 +89,49 @@
     text-decoration: none;
     color: white;
     background-color: #F97316;
-    padding: 0.5rem 1rem;
-    border-radius: 2px;
-    transition: background-color 0.3s;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
     text-align: center;
-    align-self: center; /* Centers the button horizontally */
-    margin-top: auto; /* Ensures button stays at bottom */
+    align-self: center;
+    margin-top: auto;
+    font-weight: 500;
 }
 
 .service-link:hover {
     background-color: #ea580c;
+    transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
     .services-container {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 3rem;
+    }
+
+    .services-page {
+        margin: 3rem auto;
+        padding: 100px 2% 20px;
+    }
+
+    .services-title {
+        margin-bottom: 2rem;
     }
 }
 
 @media (max-width: 480px) {
     .services-container {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
     
     .service-image {
         height: 150px;
+    }
+
+    .services-page {
+        margin: 2rem auto;
+        padding: 80px 2% 20px;
     }
 }

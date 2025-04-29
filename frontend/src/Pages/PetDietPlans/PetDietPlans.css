@@ -1,35 +1,110 @@
-/* PetDietPlans.css */
 .pet-diet-plans {
-  margin: 20px;
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: #000000;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pet-diet-plans h2 {
+  text-align: center;
+  color: #2d3748;
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.pet-diet-plans h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: #F97316;
+  border-radius: 2px;
 }
 
 .pet-diet-plans form {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
 }
 
 .pet-diet-plans label {
-  margin-top: 10px;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+  display: block;
+  font-size: 0.9rem;
 }
 
 .pet-diet-plans input {
-  padding: 8px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid #ddd;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #000000;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  background-color: white;
+  color: #000000;
 }
 
-.pet-diet-plans button {
-  padding: 10px;
-  background-color: #4caf50;
-  color: white;
+.pet-diet-plans input:focus {
+  outline: none;
+  border-color: #000000;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.pet-diet-plans input::placeholder {
+  color: #666666;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.submit-btn,
+.download-btn {
+  flex: 1;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
-  margin-top: 10px;
+  transition: all 0.3s ease;
+  text-align: center;
 }
 
-/* Dialog styles */
+.submit-btn {
+  background-color: #F97316;
+  color: white;
+}
+
+.download-btn {
+  background-color: #2d3748;
+  color: white;
+}
+
+.submit-btn:hover,
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn:active,
+.download-btn:active {
+  transform: translateY(0);
+}
+
 .diet-dialog {
   position: fixed;
   top: 0;
@@ -40,26 +115,168 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in;
 }
 
 .diet-dialog-content {
   background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  max-width: 400px;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
   width: 90%;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.5s ease-out;
 }
 
 .diet-dialog-content h3 {
-  margin-top: 0;
-  color: #4caf50;
+  color: #2d3748;
+  font-size: 1.25rem;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.diet-dialog-content h4 {
+  color: #F97316;
+  font-size: 1.1rem;
+  margin: 1.25rem 0 0.75rem;
 }
 
 .diet-dialog-content p {
-  margin: 10px 0;
+  margin: 0.5rem 0;
+  color: #4a5568;
+  line-height: 1.5;
+  font-size: 0.9rem;
 }
 
-.diet-dialog-content button {
-  background-color: #e75906;
+.diet-dialog-content strong {
+  color: #2d3748;
+  font-weight: 600;
+}
+
+.close-btn {
   width: 100%;
+  padding: 0.5rem;
+  background-color: #F97316;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background-color: #ea580c;
+  transform: translateY(-2px);
+}
+
+.close-btn:active {
+  transform: translateY(0);
+}
+
+/* Pet decorations */
+.pet-decoration {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: bounce 2s infinite;
+}
+
+.dog {
+  top: -25px;
+  left: 25px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23F97316"><path d="M12 2a2 2 0 00-2 2v2H8a2 2 0 00-2 2v2H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V12a2 2 0 00-2-2h-2V8a2 2 0 00-2-2h-2V4a2 2 0 00-2-2z"/></svg>');
+}
+
+.cat {
+  bottom: -25px;
+  right: 25px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232d3748"><path d="M12 2a4 4 0 014 4v2h2a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V10a2 2 0 012-2h2V6a4 4 0 014-4z"/></svg>');
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pet-diet-plans {
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
+
+  .pet-diet-plans h2 {
+    font-size: 1.5rem;
+  }
+
+  .pet-diet-plans form {
+    padding: 1.5rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .diet-dialog-content {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pet-diet-plans {
+    margin: 1rem auto;
+    padding: 1rem;
+  }
+
+  .pet-diet-plans h2 {
+    font-size: 1.25rem;
+  }
+
+  .pet-diet-plans form {
+    padding: 1rem;
+  }
+
+  .diet-dialog-content {
+    padding: 1rem;
+  }
+}
+
+/* Loading Spinner */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #4caf50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

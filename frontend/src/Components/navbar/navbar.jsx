@@ -48,7 +48,7 @@ const Navbar = () => {
           <Link to="/blog">BLOG</Link>
           {isBlogOpen && (
             <div className="dropdown-menu">
-              <Link to="/blog/pet-care">Pet Care Tips</Link>
+              <Link to="/nutrientplans">Nutrition Plans</Link>
               <Link to="/nutrientcalculator">Nutrient Calculator</Link>
               <Link to="/petdietplans">Pet Diet Plans</Link>
             </div>

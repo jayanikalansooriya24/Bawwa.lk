@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from '../../Components/Navbar/Navbar';
-import Footer from '../../Components/Footer/Footer';
+import Navbar from '../../Components/navbar/navbar';
+import Footer from '../../Components/footer/footer';
 import jsPDF from 'jspdf';
 import '../../Pages/NutritionManagement/NutritionManagement.css';
 

@@ -5,8 +5,24 @@ import "./useradmin.css";
 const UserAdmin = () => {
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    pet: {
+      name: "",
+      type: "",
+      breed: "",
+      age: "",
+      gender: "",
+      birthdate: "",
+      medicalConditions: "",
+      image: ""
+    }
+  });
 
+  // Fetch users
   const fetchUsers = async () => {
     try {
       const res = await axios.get("http://localhost:5000/api/user/all");
@@ -20,23 +36,23 @@ const UserAdmin = () => {
     fetchUsers();
   }, []);
 
-  // 🗑️ Delete User
+  // Delete user
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/api/user/${id}`);
-      fetchUsers(); // refresh list
+      fetchUsers();
     } catch (error) {
       console.error("Error deleting user:", error.message);
     }
   };
 
-  // ✏️ Start Editing
+  // Start editing
   const handleEdit = (user) => {
     setEditingUser(user);
-    setFormData(user); // preload form
+    setFormData(user); // Preload form
   };
 
-  // 💾 Save Updated User
+  // Update user
   const handleUpdate = async () => {
     try {
       await axios.put(`http://localhost:5000/api/user/${editingUser._id}`, formData);
@@ -50,11 +66,12 @@ const UserAdmin = () => {
   return (
     <div className="admin-container">
       <h1 className="admin-title">User Admin</h1>
+
       <table className="admin-table">
         <thead>
           <tr>
             <th>Name</th>
-            <th>PhoneNo</th>
+            <th>Phone</th>
             <th>Email</th>
             <th>Pet Name</th>
             <th>Pet Age</th>
@@ -65,8 +82,8 @@ const UserAdmin = () => {
           {users.length === 0 ? (
             <tr><td colSpan="7">No users found.</td></tr>
           ) : (
-            users.map((user, index) => (
-              <tr key={index}>
+            users.map((user) => (
+              <tr key={user._id}>
                 <td>{user.firstName} {user.lastName}</td>
                 <td>{user.phone}</td>
                 <td>{user.email}</td>
@@ -84,6 +101,7 @@ const UserAdmin = () => {
         </tbody>
       </table>
 
+      {/* Modal for editing */}
       {editingUser && (
         <div className="modal">
           <div className="modal-content">
@@ -106,7 +124,13 @@ const UserAdmin = () => {
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             />
-            {/* Add more fields if needed */}
+            <input
+              type="text"
+              placeholder="Email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            />
+            {/* Add more pet fields if needed */}
             <div className="modal-actions">
               <button onClick={handleUpdate}>Save</button>
               <button onClick={() => setEditingUser(null)}>Cancel</button>

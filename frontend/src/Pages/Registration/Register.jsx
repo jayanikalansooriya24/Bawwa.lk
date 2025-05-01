@@ -1,17 +1,23 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef } from "react";
 import { Dog, Cat, Upload, X, Venus, Mars } from "lucide-react";
-import { FaUser, FaPaw, FaEnvelope, FaPhone, FaCalendarAlt } from "react-icons/fa";
 import "./Register.css";
-
 
 const Register = () => {
   const [step, setStep] = useState(1);
   const fileInputRef = useRef(null);
-  
 
   const [formData, setFormData] = useState({
     user: { firstName: "", lastName: "", email: "", phone: "" },
-    pet: { name: "", type: "", breed: "", age: "", gender: "", birthdate: "", medicalConditions: "", image: null }
+    pet: {
+      name: "",
+      type: "",
+      breed: "",
+      age: "",
+      gender: "",
+      birthdate: "",
+      medicalConditions: "",
+      image: null,
+    },
   });
 
   const [errors, setErrors] = useState({});
@@ -20,7 +26,7 @@ const Register = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      user: { ...prev.user, [name]: value }
+      user: { ...prev.user, [name]: value },
     }));
   };
 
@@ -28,20 +34,18 @@ const Register = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      pet: { ...prev.pet, [name]: value }
+      pet: { ...prev.pet, [name]: value },
     }));
   };
 
-  
-  
   const petTypes = [
     { value: "dog", label: "Dog", icon: Dog },
-    { value: "cat", label: "Cat", icon: Cat }
+    { value: "cat", label: "Cat", icon: Cat },
   ];
 
   const genderOptions = [
     { value: "male", label: "Male", icon: Mars },
-    { value: "female", label: "Female", icon: Venus }
+    { value: "female", label: "Female", icon: Venus },
   ];
 
   const handleImageUpload = (e) => {
@@ -51,18 +55,16 @@ const Register = () => {
       reader.onloadend = () =>
         setFormData((prev) => ({
           ...prev,
-          pet: { ...prev.pet, image: reader.result }
+          pet: { ...prev.pet, image: reader.result },
         }));
       reader.readAsDataURL(file);
     }
   };
 
-  
-
   const removeImage = () => {
     setFormData((prev) => ({
       ...prev,
-      pet: { ...prev.pet, image: null }
+      pet: { ...prev.pet, image: null },
     }));
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
@@ -71,7 +73,8 @@ const Register = () => {
     const newErrors = {};
     if (!formData.user.firstName.trim()) newErrors.firstName = "First name is required";
     if (!formData.user.lastName.trim()) newErrors.lastName = "Last name is required";
-    if (!formData.user.email.trim() || !/\S+@\S+\.\S+/.test(formData.user.email)) newErrors.email = "Valid email is required";
+    if (!formData.user.email.trim() || !/\S+@\S+\.\S+/.test(formData.user.email))
+      newErrors.email = "Valid email is required";
     if (!formData.user.phone.trim()) newErrors.phone = "Phone number is required";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -81,7 +84,7 @@ const Register = () => {
     const newErrors = {};
     if (!formData.pet.name.trim()) newErrors.petName = "Pet name is required";
     if (!formData.pet.breed.trim()) newErrors.petBreed = "Pet breed is required";
-    if (!formData.pet.birthday.trim()) newErrors.petName = "Pet Birthday is required";
+    if (!formData.pet.birthdate.trim()) newErrors.petBirthday = "Pet birthday is required";
     if (!formData.pet.age.trim()) newErrors.petAge = "Pet age is required";
     if (!formData.pet.gender) newErrors.petGender = "Pet gender is required";
     setErrors(newErrors);
@@ -89,30 +92,26 @@ const Register = () => {
   };
 
   const nextStep = () => {
-    if (step === 1 && validateStep1()) {
-      setStep(2);
-    } else if (step === 2 && validateStep2()) {
-      setStep(3);
-    }
+    if (step === 1 && validateStep1()) setStep(2);
+    else if (step === 2 && validateStep2()) setStep(3);
   };
 
   const prevStep = () => setStep((prev) => prev - 1);
+
   const handleSubmit = async () => {
     try {
       const response = await fetch("http://localhost:5000/api/user/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData.user,
           password: "defaultPassword123",
           pet: formData.pet,
         }),
       });
-  
+
       const result = await response.json();
-  
+
       if (response.ok) {
         alert("🎉 Registration Successful!");
       } else {
@@ -122,7 +121,7 @@ const Register = () => {
       console.error("Error submitting form:", error);
       alert("❌ Something went wrong. Please try again.");
     }
-  
+
     // Reset form
     setStep(1);
     setFormData({
@@ -139,7 +138,6 @@ const Register = () => {
       },
     });
   };
-  
 
   return (
     <div className="register-container">
@@ -164,32 +162,32 @@ const Register = () => {
           <input type="text" name="name" value={formData.pet.name} onChange={handlePetChange} placeholder="Pet Name" />
           {errors.petName && <p className="error">{errors.petName}</p>}
           <input type="text" name="breed" value={formData.pet.breed} onChange={handlePetChange} placeholder="Breed" />
-          <input type="text" name="birthday" value={formData.pet.birthday} onChange={handlePetChange} placeholder="Birthday" />
+          <input type="text" name="birthdate" value={formData.pet.birthdate} onChange={handlePetChange} placeholder="Birthday" />
           <input type="text" name="age" value={formData.pet.age} onChange={handlePetChange} placeholder="Age" />
           <h3>Select Gender</h3>
-<div className="gender-container">
-  {genderOptions.map(({ value, label, icon: Icon }) => (
-    <button key={value} type="button" onClick={() => setFormData((prev) => ({ ...prev, pet: { ...prev.pet, gender: value } }))} className={`gender-button ${formData.pet.gender === value ? "active" : ""}`}>
-      <Icon /> {label}
-    </button>
-  ))}
-</div>
-{errors.petGender && <p className="error">{errors.petGender}</p>}
+          <div className="gender-container">
+            {genderOptions.map(({ value, label, icon: Icon }) => (
+              <button key={value} type="button" onClick={() => setFormData((prev) => ({ ...prev, pet: { ...prev.pet, gender: value } }))} className={`gender-button ${formData.pet.gender === value ? "active" : ""}`}>
+                <Icon /> {label}
+              </button>
+            ))}
+          </div>
+          {errors.petGender && <p className="error">{errors.petGender}</p>}
           <h3>Select Pet Type</h3>
-            <div className="pet-type-container">
-              {petTypes.map(({ value, label, icon: Icon }) => (
-                <button key={value} type="button" onClick={() => setFormData((prev) => ({ ...prev, pet: { ...prev.pet, type: value } }))} className={`pet-type-button ${formData.pet.type === value ? "active" : ""}`}>
-                  <Icon /> {label}
-                </button>
-              ))}
-            </div>
+          <div className="pet-type-container">
+            {petTypes.map(({ value, label, icon: Icon }) => (
+              <button key={value} type="button" onClick={() => setFormData((prev) => ({ ...prev, pet: { ...prev.pet, type: value } }))} className={`pet-type-button ${formData.pet.type === value ? "active" : ""}`}>
+                <Icon /> {label}
+              </button>
+            ))}
+          </div>
           <h3>Upload Pet Image</h3>
-            <label className="upload-label">
-              <Upload /> Upload Image
-              <input type="file" ref={fileInputRef} onChange={handleImageUpload} hidden />
-            </label>
-            {formData.pet.image && <img src={formData.pet.image} alt="Pet" />}
-            {formData.pet.image && <button type="button" onClick={removeImage}><X /> Remove Image</button>}
+          <label className="upload-label">
+            <Upload /> Upload Image
+            <input type="file" ref={fileInputRef} onChange={handleImageUpload} hidden />
+          </label>
+          {formData.pet.image && <img src={formData.pet.image} alt="Pet" />}
+          {formData.pet.image && <button type="button" onClick={removeImage}><X /> Remove Image</button>}
           <button type="button" onClick={prevStep}>Back</button>
           <button type="button" onClick={nextStep}>Next</button>
         </form>
@@ -197,18 +195,14 @@ const Register = () => {
 
       {step === 3 && (
         <div className="review-container">
-        <h2>Review Your Information</h2>
-        <p><strong>User:</strong>Nmae - {formData.user.firstName} {formData.user.lastName} <br></br>Email- {formData.user.email} <br></br>Tele no -  {formData.user.phone}</p>
-        <p><strong>Pet:</strong> Name - {formData.pet.name} <br></br> Birthday -{formData.pet.birthdate}<br></br>Breed - {formData.pet.breed}<br></br> Age - {formData.pet.age} </p>
-        {formData.pet.image && <img src={formData.pet.image} alt="Pet" />}
-        <button type="button" onClick={handleSubmit}>
-  Complete Registration
-</button>
-
-        <button type="button" onClick={prevStep}>Back</button>
-      </div>
-    )}
-
+          <h2>Review Your Information</h2>
+          <p><strong>User:</strong> Name - {formData.user.firstName} {formData.user.lastName}<br />Email - {formData.user.email}<br />Phone - {formData.user.phone}</p>
+          <p><strong>Pet:</strong> Name - {formData.pet.name}<br />Birthday - {formData.pet.birthdate}<br />Breed - {formData.pet.breed}<br />Age - {formData.pet.age}</p>
+          {formData.pet.image && <img src={formData.pet.image} alt="Pet" />}
+          <button type="button" onClick={handleSubmit}>Complete Registration</button>
+          <button type="button" onClick={prevStep}>Back</button>
+        </div>
+      )}
     </div>
   );
 };

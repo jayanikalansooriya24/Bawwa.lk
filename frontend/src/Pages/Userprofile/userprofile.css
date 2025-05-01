@@ -1,137 +1,52 @@
+.profile-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 30px;
+}
+
 .profile-image {
-  position: relative;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 15px;
+  min-width: 280px;
 }
 
 .profile-image img {
-  width: 600px;
-  height: 300px;
-  border-radius: 50%; /* Makes the image circular */
-  border: 4px solid #ff8800; /* Blue border */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
-  object-fit: cover; /* Ensures the image fits well */
-  transition: transform 0.3s ease-in-out; /* Smooth hover effect */
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: 4px solid #ff8800;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
 }
 
 .profile-image img:hover {
-  transform: scale(1.1); /* Slight zoom-in effect on hover */
+  transform: scale(1.1);
 }
 
-.profile-container {
-  margin: 40px auto;
-  padding: 30px;
-  max-width: 1000px;
-
-  background:#ffffff; /* More transparent */
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-  text-align: center;
-  backdrop-filter: blur(16px); /* Blur behind it */
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.3); /* Frosted border */
-}
-
-.profile-title {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #000000;
-  margin-bottom: 10px;
-}
-
-.profile-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-  width: 100%;
-}
-
-.info-section {
-  background: #ffffff33; /* Match the color of owner-info */
-  padding: 20px; /* Increase padding for better spacing */
-  border-radius: 10px; /* Rounded corners */
-  width: 100%; /* Ensure full width inside its container */
-  max-width: 800px; /* Set a maximum width */
-  text-align: center; /* Center text inside */
-  margin: 20px auto; /* Add margin for spacing and centering */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
-}
-
-.info-section p {
-  font-size: 1.0rem;
-  margin: 8px 0;
-
-}
-
-.error {
-  color: red;
-  font-size: 12px;
-  margin-top: 5px;
-}
-
-.info-section h2 {
-  font-size: 1.5rem;
-  color: #ff8800;
-  margin-bottom: 10px;
+.profile-details,
+.owner-info {
+  flex: 2;
+  min-width: 300px;
+  background: #ffffff33;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
 }
 
 .owner-info {
-  text-align: center;
-  margin-top: 20px;
-  background: #ffffff1e;
-  padding: 15px;
-  border-radius: 10px;
-  font-size: 1.0rem;
+  margin-top: 0;
 }
 
-.owner-info h2 {
-  font-size: 2.0rem;
-  color: #ff8800;
-  margin-bottom: 10px;
-}
-
-.profile-buttons {
+.profile-buttons{
   display: flex;
-  justify-content: center;
-  gap: 15px;
+  justify-content: space-between;
   margin-top: 20px;
-}
-
-.btn {
-  padding: 12px 18px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease-in-out;
-  width: 165px;
-  
-}
-
-.btn.blue {
-  background-color: #007bff;
-  color: white;
-}
-
-.btn.blue:hover {
-  background-color: #0056b3;
-}
-
-.btn.red {
-  background-color: #dc3545;
-  color: white;
-}
-
-.btn.red:hover {
-  background-color: #a71d2a;
-}
-
-.error {
-  color: red;
-  font-size: 12px;
-  margin-top: 5px;
 }

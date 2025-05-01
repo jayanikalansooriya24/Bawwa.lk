@@ -22,16 +22,16 @@ const UserProfile = () => {
   const handleDelete = async () => {
     const confirmDelete = window.confirm("Are you sure you want to delete this profile?");
     if (!confirmDelete) return;
-  
+
     try {
       const res = await fetch("http://localhost:5000/api/user/latest", {
         method: "DELETE",
       });
       const data = await res.json();
-  
+
       if (res.ok) {
         alert("🗑️ User deleted successfully!");
-        setUser(null); // clear the profile
+        setUser(null);
       } else {
         alert("❌ Failed to delete user: " + data.message);
       }
@@ -40,7 +40,7 @@ const UserProfile = () => {
       alert("❌ Something went wrong!");
     }
   };
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.startsWith("pet.")) {
@@ -82,31 +82,30 @@ const UserProfile = () => {
             </>
           )}
         </div>
-      </div>
-      <div className="owner-info">
-        <h2>Owner Information</h2>
-        {isEditing ? (
-          <>
-            <input name="firstName" value={firstName} onChange={handleChange} />
-            <input name="lastName" value={lastName} onChange={handleChange} />
-            <input name="email" value={email} onChange={handleChange} />
-            <input name="phone" value={phone} onChange={handleChange} />
-          </>
-        ) : (
-          <>
-            <p><strong>First Name:</strong> {firstName}</p>
-            <p><strong>Last Name:</strong> {lastName}</p>
-            <p><strong>Email:</strong> {email}</p>
-            <p><strong>Phone:</strong> {phone}</p>
-          </>
-        )}
+        <div className="owner-info">
+          <h2>Owner Information</h2>
+          {isEditing ? (
+            <>
+              <input name="firstName" value={firstName} onChange={handleChange} />
+              <input name="lastName" value={lastName} onChange={handleChange} />
+              <input name="email" value={email} onChange={handleChange} />
+              <input name="phone" value={phone} onChange={handleChange} />
+            </>
+          ) : (
+            <>
+              <p><strong>First Name:</strong> {firstName}</p>
+              <p><strong>Last Name:</strong> {lastName}</p>
+              <p><strong>Email:</strong> {email}</p>
+              <p><strong>Phone:</strong> {phone}</p>
+            </>
+          )}
+        </div>
       </div>
       <div className="profile-buttons">
         <button className="btn blue">Appointments</button>
         <button className="btn blue">Vaccinations</button>
         <button className="btn green" onClick={() => setIsEditing(!isEditing)}>{isEditing ? "Save" : "Update"}</button>
         <button className="btn red" onClick={handleDelete}>Delete</button>
-
       </div>
     </div>
   );
